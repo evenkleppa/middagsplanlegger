@@ -1,0 +1,851 @@
+{
+ "recipes/taco": {
+  "name": "Taco",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kjøttdeig",
+    "amount": 400,
+    "unit": "g"
+   },
+   {
+    "name": "Tacokrydder",
+    "amount": 1,
+    "unit": "pose"
+   },
+   {
+    "name": "Tortillalefser",
+    "amount": 1,
+    "unit": "pk"
+   },
+   {
+    "name": "Revet ost",
+    "amount": 200,
+    "unit": "g"
+   },
+   {
+    "name": "Rømme",
+    "amount": 300,
+    "unit": "g"
+   },
+   {
+    "name": "Salsa",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Agurk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Tomat",
+    "amount": 2,
+    "unit": "stk"
+   },
+   {
+    "name": "Mais",
+    "amount": 1,
+    "unit": "boks"
+   },
+   {
+    "name": "Isbergsalat",
+    "amount": 1,
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "suggested": true,
+  "weekend": true
+ },
+ "recipes/kjottkaker": {
+  "name": "Kjøttkaker med brun saus",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kjøttdeig",
+    "amount": 600,
+    "unit": "g"
+   },
+   {
+    "name": "Egg",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Løk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Poteter",
+    "amount": 1,
+    "unit": "kg"
+   },
+   {
+    "name": "Brun saus",
+    "amount": 1,
+    "unit": "pose"
+   },
+   {
+    "name": "Gulrøtter",
+    "amount": 400,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/spagetti-bolognese": {
+  "name": "Spagetti bolognese",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kjøttdeig",
+    "amount": 400,
+    "unit": "g"
+   },
+   {
+    "name": "Spagetti",
+    "amount": 400,
+    "unit": "g"
+   },
+   {
+    "name": "Hakkede tomater",
+    "amount": 2,
+    "unit": "boks"
+   },
+   {
+    "name": "Løk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Hvitløk",
+    "amount": 2,
+    "unit": "fedd"
+   },
+   {
+    "name": "Revet ost",
+    "amount": 100,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/lasagne": {
+  "name": "Lasagne",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kjøttdeig",
+    "amount": 500,
+    "unit": "g"
+   },
+   {
+    "name": "Lasagneplater",
+    "amount": 1,
+    "unit": "pk"
+   },
+   {
+    "name": "Hakkede tomater",
+    "amount": 2,
+    "unit": "boks"
+   },
+   {
+    "name": "Løk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Melk",
+    "amount": 5,
+    "unit": "dl"
+   },
+   {
+    "name": "Hvetemel",
+    "amount": 40,
+    "unit": "g"
+   },
+   {
+    "name": "Smør",
+    "amount": 40,
+    "unit": "g"
+   },
+   {
+    "name": "Revet ost",
+    "amount": 200,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/fiskegrateng": {
+  "name": "Fiskegrateng",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Hvit fisk",
+    "amount": 500,
+    "unit": "g"
+   },
+   {
+    "name": "Makaroni",
+    "amount": 200,
+    "unit": "g"
+   },
+   {
+    "name": "Melk",
+    "amount": 6,
+    "unit": "dl"
+   },
+   {
+    "name": "Smør",
+    "amount": 50,
+    "unit": "g"
+   },
+   {
+    "name": "Hvetemel",
+    "amount": 50,
+    "unit": "g"
+   },
+   {
+    "name": "Egg",
+    "amount": 2,
+    "unit": "stk"
+   },
+   {
+    "name": "Revet ost",
+    "amount": 100,
+    "unit": "g"
+   },
+   {
+    "name": "Gulrøtter",
+    "amount": 300,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/laks-ovn": {
+  "name": "Laks i ovn med poteter og brokkoli",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Laksefilet",
+    "amount": 600,
+    "unit": "g"
+   },
+   {
+    "name": "Poteter",
+    "amount": 1,
+    "unit": "kg"
+   },
+   {
+    "name": "Brokkoli",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Sitron",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Rømme",
+    "amount": 300,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/fiskekaker": {
+  "name": "Fiskekaker med poteter og gulrøtter",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Fiskekaker",
+    "amount": 600,
+    "unit": "g"
+   },
+   {
+    "name": "Poteter",
+    "amount": 1,
+    "unit": "kg"
+   },
+   {
+    "name": "Gulrøtter",
+    "amount": 400,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/polser-potetmos": {
+  "name": "Pølser og potetmos",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Wienerpølser",
+    "amount": 600,
+    "unit": "g"
+   },
+   {
+    "name": "Poteter",
+    "amount": 1,
+    "unit": "kg"
+   },
+   {
+    "name": "Melk",
+    "amount": 2,
+    "unit": "dl"
+   },
+   {
+    "name": "Smør",
+    "amount": 30,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/pizza": {
+  "name": "Hjemmelaget pizza",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Hvetemel",
+    "amount": 500,
+    "unit": "g"
+   },
+   {
+    "name": "Gjær",
+    "amount": 1,
+    "unit": "pk"
+   },
+   {
+    "name": "Pizzasaus",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Revet ost",
+    "amount": 300,
+    "unit": "g"
+   },
+   {
+    "name": "Skinke",
+    "amount": 150,
+    "unit": "g"
+   },
+   {
+    "name": "Paprika",
+    "amount": 1,
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "suggested": true,
+  "weekend": true
+ },
+ "recipes/frossenpizza": {
+  "name": "Frossenpizza",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Frossenpizza",
+    "amount": 2,
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "suggested": true,
+  "weekend": true
+ },
+ "recipes/kylling-ris": {
+  "name": "Kylling med ris og grønnsaker",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kyllingfilet",
+    "amount": 600,
+    "unit": "g"
+   },
+   {
+    "name": "Ris",
+    "amount": 300,
+    "unit": "g"
+   },
+   {
+    "name": "Frosne grønnsaker",
+    "amount": 1,
+    "unit": "pose"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/kyllinggryte-karri": {
+  "name": "Kyllinggryte med karri",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kyllingfilet",
+    "amount": 600,
+    "unit": "g"
+   },
+   {
+    "name": "Kokosmelk",
+    "amount": 1,
+    "unit": "boks"
+   },
+   {
+    "name": "Karripasta",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Løk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Paprika",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Ris",
+    "amount": 300,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/fajitas": {
+  "name": "Fajitas",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kyllingfilet",
+    "amount": 600,
+    "unit": "g"
+   },
+   {
+    "name": "Fajitakrydder",
+    "amount": 1,
+    "unit": "pose"
+   },
+   {
+    "name": "Tortillalefser",
+    "amount": 1,
+    "unit": "pk"
+   },
+   {
+    "name": "Paprika",
+    "amount": 2,
+    "unit": "stk"
+   },
+   {
+    "name": "Løk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Rømme",
+    "amount": 300,
+    "unit": "g"
+   },
+   {
+    "name": "Revet ost",
+    "amount": 150,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/carbonara": {
+  "name": "Pasta carbonara",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Spagetti",
+    "amount": 400,
+    "unit": "g"
+   },
+   {
+    "name": "Bacon",
+    "amount": 200,
+    "unit": "g"
+   },
+   {
+    "name": "Egg",
+    "amount": 4,
+    "unit": "stk"
+   },
+   {
+    "name": "Fløte",
+    "amount": 3,
+    "unit": "dl"
+   },
+   {
+    "name": "Revet parmesan",
+    "amount": 80,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/pasta-pesto-kylling": {
+  "name": "Pasta med pesto og kylling",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Pasta",
+    "amount": 400,
+    "unit": "g"
+   },
+   {
+    "name": "Pesto",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Kyllingfilet",
+    "amount": 400,
+    "unit": "g"
+   },
+   {
+    "name": "Cherrytomater",
+    "amount": 250,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/chili-con-carne": {
+  "name": "Chili con carne",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kjøttdeig",
+    "amount": 400,
+    "unit": "g"
+   },
+   {
+    "name": "Kidneybønner",
+    "amount": 1,
+    "unit": "boks"
+   },
+   {
+    "name": "Hakkede tomater",
+    "amount": 2,
+    "unit": "boks"
+   },
+   {
+    "name": "Løk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Chilikrydder",
+    "amount": 1,
+    "unit": "pose"
+   },
+   {
+    "name": "Ris",
+    "amount": 300,
+    "unit": "g"
+   },
+   {
+    "name": "Rømme",
+    "amount": 300,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/hamburgere": {
+  "name": "Hamburgere",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Kjøttdeig",
+    "amount": 500,
+    "unit": "g"
+   },
+   {
+    "name": "Hamburgerbrød",
+    "amount": 4,
+    "unit": "stk"
+   },
+   {
+    "name": "Ostskiver",
+    "amount": 4,
+    "unit": "stk"
+   },
+   {
+    "name": "Tomat",
+    "amount": 2,
+    "unit": "stk"
+   },
+   {
+    "name": "Isbergsalat",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Løk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Dressing",
+    "amount": 1,
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "suggested": true,
+  "weekend": true
+ },
+ "recipes/fiskepinner": {
+  "name": "Fiskepinner med potetmos og erter",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Fiskepinner",
+    "amount": 1,
+    "unit": "pk"
+   },
+   {
+    "name": "Poteter",
+    "amount": 1,
+    "unit": "kg"
+   },
+   {
+    "name": "Melk",
+    "amount": 2,
+    "unit": "dl"
+   },
+   {
+    "name": "Smør",
+    "amount": 30,
+    "unit": "g"
+   },
+   {
+    "name": "Erter",
+    "amount": 1,
+    "unit": "pose"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/fiskesuppe": {
+  "name": "Fiskesuppe",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Hvit fisk",
+    "amount": 400,
+    "unit": "g"
+   },
+   {
+    "name": "Fløte",
+    "amount": 3,
+    "unit": "dl"
+   },
+   {
+    "name": "Melk",
+    "amount": 5,
+    "unit": "dl"
+   },
+   {
+    "name": "Gulrøtter",
+    "amount": 200,
+    "unit": "g"
+   },
+   {
+    "name": "Purreløk",
+    "amount": 1,
+    "unit": "stk"
+   },
+   {
+    "name": "Fiskebuljong",
+    "amount": 1,
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/tomatsuppe": {
+  "name": "Tomatsuppe med egg og makaroni",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Tomatsuppe",
+    "amount": 2,
+    "unit": "pose"
+   },
+   {
+    "name": "Egg",
+    "amount": 4,
+    "unit": "stk"
+   },
+   {
+    "name": "Makaroni",
+    "amount": 100,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/wok": {
+  "name": "Wok med svinestrimler",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Svinestrimler",
+    "amount": 500,
+    "unit": "g"
+   },
+   {
+    "name": "Wokgrønnsaker",
+    "amount": 1,
+    "unit": "pose"
+   },
+   {
+    "name": "Nudler",
+    "amount": 250,
+    "unit": "g"
+   },
+   {
+    "name": "Soyasaus",
+    "amount": 1,
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/omelett": {
+  "name": "Omelett",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Egg",
+    "amount": 8,
+    "unit": "stk"
+   },
+   {
+    "name": "Melk",
+    "amount": 1,
+    "unit": "dl"
+   },
+   {
+    "name": "Skinke",
+    "amount": 150,
+    "unit": "g"
+   },
+   {
+    "name": "Revet ost",
+    "amount": 100,
+    "unit": "g"
+   },
+   {
+    "name": "Paprika",
+    "amount": 1,
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/pannekaker": {
+  "name": "Pannekaker",
+  "servings": 4,
+  "ingredients": [
+   {
+    "name": "Hvetemel",
+    "amount": 250,
+    "unit": "g"
+   },
+   {
+    "name": "Melk",
+    "amount": 6,
+    "unit": "dl"
+   },
+   {
+    "name": "Egg",
+    "amount": 4,
+    "unit": "stk"
+   },
+   {
+    "name": "Smør",
+    "amount": 30,
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "suggested": true
+ },
+ "recipes/rester": {
+  "name": "Rester",
+  "servings": 4,
+  "ingredients": [],
+  "leftover": true
+ },
+ "ingredients/kjottdeig": {
+  "name": "Kjøttdeig",
+  "unit": "g",
+  "packSize": 400
+ },
+ "ingredients/spagetti": {
+  "name": "Spagetti",
+  "unit": "g",
+  "packSize": 500
+ },
+ "ingredients/pasta": {
+  "name": "Pasta",
+  "unit": "g",
+  "packSize": 500
+ },
+ "ingredients/ris": {
+  "name": "Ris",
+  "unit": "g",
+  "packSize": 1000
+ },
+ "ingredients/romme": {
+  "name": "Rømme",
+  "unit": "g",
+  "packSize": 300
+ },
+ "ingredients/melk": {
+  "name": "Melk",
+  "unit": "ml",
+  "packSize": 1000
+ },
+ "ingredients/egg": {
+  "name": "Egg",
+  "unit": "stk",
+  "packSize": 12
+ },
+ "ingredients/flote": {
+  "name": "Fløte",
+  "unit": "ml",
+  "packSize": 300
+ }
+}

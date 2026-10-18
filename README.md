@@ -65,7 +65,7 @@ Dette gjør at lenkene i e-poster (bekreftelse og glemt passord) går tilbake ti
 ## 6. Ta i bruk appen
 
 1. Åpne adressen og trykk **Ny her? Opprett bruker**.
-2. Velg **Opprett husstand**. La avhukingen for å ta med rettene og menyen fra den gamle appen stå på.
+2. Velg **Opprett husstand**. La avhukingen «Start med forslag til vanlige middagsretter» stå på hvis dere vil ha rundt 20 vanlige retter å starte med. Alle kan endres eller slettes. Svar så på hvordan dere handler (hver uke, annenhver uke eller hver måned), hvilken dag dere handler og hvor mange dere er. Dette kan endres senere under **Innstillinger** (tannhjulet øverst til høyre).
 3. Nederst i appen står **husstandskoden**, som er seks tegn. Send den til kona.
 4. Hun åpner samme adresse, lager sin egen bruker og velger **Bli med i en husstand** med koden.
 
@@ -87,7 +87,7 @@ Rediger eller last opp nye filer i GitHub-repoet. GitHub Pages oppdaterer seg se
 
 ## Godt å vite
 
-- **Hva som er offentlig:** repoet er offentlig, så koden og `data/startdata.json` (rettene fra den gamle appen) kan ses av alle som finner det. Menyene og alt dere legger inn senere ligger bare i Supabase. Vil du, kan du slette `data/startdata.json` fra GitHub etter at husstanden er opprettet.
+- **Hva som er offentlig:** repoet er offentlig, så koden og startpakken i `data/startdata.json` kan ses av alle som finner det. Menyene, rettene og alt dere legger inn ligger bare i Supabase.
 - **Den gamle appen** på claude.ai blir ikke oppdatert når dere bruker denne, og omvendt.
 - **Gratisplanen hos Supabase** pauser prosjekter som ikke er brukt på en uke. Bruker dere appen jevnlig, skjer ikke det. Skjer det likevel, trykker du **Restore** i Supabase.
 
@@ -98,5 +98,5 @@ Rediger eller last opp nye filer i GitHub-repoet. GitHub Pages oppdaterer seg se
 | `index.html` | Selve appen |
 | `config.js` | Adressen og nøkkelen til Supabase |
 | `supabase/schema.sql` | Databasen og tilgangsreglene, kjøres én gang |
-| `data/startdata.json` | Rettene og menyen fra den gamle appen |
+| `data/startdata.json` | Startpakken med vanlige middagsretter for nye husstander |
 | `manifest.webmanifest`, `sw.js`, `icons/` | Gjør at appen kan installeres på telefonen |
