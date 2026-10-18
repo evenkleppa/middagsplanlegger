@@ -681,7 +681,7 @@ input[type=checkbox]:checked{
 .opts.up{top:auto;bottom:calc(100% + 6px)}
 .day{scroll-margin-top:12px}
 @media (max-width:719px){
-  :root{--periodbar:52px}
+  :root{--periodbar:52px;--tabbar:76px}
   body{padding-bottom:calc(var(--tabbar) + var(--periodbar) + 28px + env(safe-area-inset-bottom,0px))}
   #monthbar{
     position:fixed;left:0;right:0;z-index:39;
@@ -703,10 +703,10 @@ input[type=checkbox]:checked{
   #monthbar .msub{grid-column:2;grid-row:2;align-self:start;font-size:12px;line-height:1.3;margin:1px 0 0}
   #monthbar:has(#mSub[hidden]) #mLabel{grid-row:1/3;align-self:center}
   /* Tydelig skille mellom periodelinja og fanene, og mellom fanene */
-  .tabs{border-top:1px solid #DAD6CE;background:rgba(255,255,255,.97)}
+  .tabs{border-top:1.5px solid rgba(45,90,76,.35);background:rgba(255,255,255,.97);gap:4px}
+  .tabs button[aria-selected="true"]{background:var(--mustard-soft);color:var(--accent)}
   #monthbar{background:rgba(255,255,255,.97)!important}
   .tabs button{position:relative}
-  .tabs button + button::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:28px;background:#DAD6CE;pointer-events:none}
   #toast{bottom:calc(var(--tabbar) + var(--periodbar) + 16px + env(safe-area-inset-bottom,0px))}
   /* Mer plass når man skriver: skjul linjene nederst */
   body:has(.dish:focus,.pers:focus,.pin input:focus,.packform input:focus,.search:focus,.field input:focus,.ing input:focus) .tabs,
@@ -717,6 +717,104 @@ input[type=checkbox]:checked{
   #monthbar h2{font-size:20px}
   #monthbar .iconbtn{width:40px;height:40px}
 }
+
+/* Ikoner i fanelinja (mobil), skjult i fanevelgeren på PC */
+.tabs button svg{display:none}
+@media (max-width:719px){
+  .tabs button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:12px;font-weight:600;min-height:58px}
+  .tabs button svg{display:block;width:24px;height:24px;transition:transform .2s var(--ease)}
+  .tabs button:active svg{transform:scale(.9)}
+  /* Variant B: aktiv fane markeres med farge, ikke bakgrunn */
+  .tabs button[aria-selected="true"]{background:transparent!important;color:var(--accent)}
+  .tabs button[aria-selected="true"] svg{fill:var(--mustard-soft)}
+  .tabs button[aria-selected="true"] span{font-weight:700}
+}
+
+/* ================= Pilleform =================
+   Knapper, felt og korte kort er helt runde i endene; større flater får myke 24–28 px hjørner. */
+:root{--pill:999px;--r-soft:26px}
+.btn,.btn.primary,.btn.soft,.btn.danger,.genbar #genBtn,#newR,.aform .btn{border-radius:var(--pill)}
+.dish,.pers,.field input,.ing input,.ing select,.pin input,.pin select,.packform input,.packform select,.search,.pchip,.chip,.packbadge,.tag,.count{border-radius:var(--pill)}
+.stepper{border-radius:var(--pill);padding:3px}
+.stepper button{border-radius:50%}
+.day{border-radius:var(--pill);padding:8px 10px 8px 8px}
+.day .dlabel{border-radius:var(--pill)}
+.opts{border-radius:24px;padding:8px}
+.opt{border-radius:var(--pill);padding:10px 16px}
+.rcard{border-radius:var(--r-soft);padding:18px 22px}
+.receipt,.pantry,.editor,.authcard,.notice{border-radius:28px}
+.abox,.rules,.missing,.amsg,.aerr{border-radius:22px}
+.ing{border-radius:24px}
+.obopt{border-radius:var(--pill);padding:16px 26px}
+.stats > span{border-radius:var(--pill)}
+.srow .code{border-radius:var(--pill);padding:5px 14px}
+.dish{padding-left:16px}
+@media (min-width:720px){
+  #monthbar{border-radius:var(--pill);padding:8px 10px}
+  .tabs{border-radius:var(--pill);padding:4px}
+  .tabs button{border-radius:var(--pill)}
+}
+
+/* Innstillinger: luftige seksjoner delt med tynne linjer i stedet for bokser */
+.settings-view{gap:4px}
+.settings-view .settitle{margin-bottom:6px}
+.settings-view .scard{background:transparent;box-shadow:none;border-radius:0;padding:20px 2px;border-bottom:1px solid var(--line)}
+.settings-view .setlist{gap:0}
+.settings-view .setlist .scard:last-child{border-bottom:0}
+.settings-view .sethead{font-size:19px}
+.settings-view .setopts .chip{background:var(--surface);box-shadow:var(--shadow-sm)}
+.settings-view .setopts .chip[aria-pressed="true"]{background:var(--accent);color:#fff}
+.settings-view .stepper{background:var(--surface);box-shadow:var(--shadow-sm)}
+.settings-view .stepper button{box-shadow:none;background:var(--sunk)}
+.settings-view .srow{border-radius:0}
+.settings-view .credit{margin-top:18px}
+
+/* Mer luft rundt datoen i dagskortene */
+.day{grid-template-columns:56px minmax(0,1fr) auto;column-gap:8px;padding:10px 12px 10px 20px;min-height:76px}
+.day .pers{width:48px}
+.day .dish{padding-right:42px}
+.dlabel{min-height:54px;gap:4px}
+.dow{font-size:12px;letter-spacing:.06em}
+.dnum{font-size:23px}
+.day.today .dow{font-size:0;letter-spacing:0}
+.day.today .dow::after{content:"I dag";display:block;margin:0;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+.day.today .dnum{width:38px;height:38px;font-size:20px}
+.days{gap:10px}
+@media (min-width:560px){ .day{grid-template-columns:66px minmax(0,1fr) auto;padding:10px 16px 10px 22px} }
+
+/* Kompakt topp: liten logo som et favicon, mindre tittel, ingen undertittel */
+.top{min-height:var(--tap);gap:10px}
+.brand{gap:10px}
+.brand .logo{width:32px;border-radius:9px;box-shadow:0 1px 3px rgba(70,55,30,.12)}
+.brand h1{font:700 21px/1.1 var(--f-display);letter-spacing:-.02em}
+.brand p#sub{display:none}
+.gearbtn{box-shadow:none;background:transparent}
+.gearbtn:hover{background:var(--sunk)}
+.app{gap:16px}
+@media (min-width:720px){
+  .brand .logo{width:36px;border-radius:10px}
+  .brand h1{font-size:24px}
+}
+
+/* Bakgrunn: kjøkkentegninger og et svakt lin-korn. Står stille når man scroller. */
+body{position:relative;z-index:0}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22260%22%20height%3D%22260%22%20viewBox%3D%220%200%20260%20260%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22%232D5A4C%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20opacity%3D%22.085%22%3E%3Cg%20transform%3D%22translate%2828%2022%29%20rotate%28-18%29%22%3E%3Cpath%20d%3D%22M0%200v9M3.5%200v9M7%200v9M0%209c0%203%207%203%207%200M3.5%2011v17%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28110%2030%29%20rotate%2812%29%22%3E%3Cpath%20d%3D%22M2%206l16%202-13%2013z%22/%3E%3Cpath%20d%3D%22M18%208c2-3%205-4%207-3M18%208c3-1%206%201%207%203M18%208c1-3%200-6-2-7%22/%3E%3Cpath%20d%3D%22M7%2011l2%202M10%209l2%202%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28190%2020%29%20rotate%28-6%29%22%3E%3Cpath%20d%3D%22M2%208h20v8a6%206%200%200%201-6%206h-8a6%206%200%200%201-6-6z%22/%3E%3Cpath%20d%3D%22M0%208h24M8%203c-.6.8.6%201.6%200%202.4M12%202.5c-.6.8.6%201.6%200%202.4M16%203c-.6.8.6%201.6%200%202.4%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2860%2096%29%20rotate%288%29%22%3E%3Cpath%20d%3D%22M2%2024c6-6%2010-12%2012-22%22/%3E%3Cpath%20d%3D%22M8%2015c-4%200-6-2-6-5%204%200%206%202%206%205zM11%209c3%200%205-2%205-5-3%200-5%202-5%205zM6%2020c3%201%206%200%207-3-3-1-6%200-7%203z%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28150%20100%29%20rotate%2822%29%22%3E%3Cpath%20d%3D%22M5%200c-5%205-5%2012%200%2016c5-4%205-11%200-16zM5%200c-2%205-2%2012%200%2016c2-4%202-11%200-16zM5%2016v12%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28222%20110%29%20rotate%28-10%29%22%3E%3Cpath%20d%3D%22M10%204c-8%204-9%2014%200%2018c9-4%208-14%200-18z%22/%3E%3Cpath%20d%3D%22M10%204V0M8%2022l-2%203M12%2022l2%203M10%208c-3%203-3%209%200%2012%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%2820%20176%29%20rotate%2814%29%22%3E%3Cellipse%20cx%3D%224%22%20cy%3D%225%22%20rx%3D%224%22%20ry%3D%225.5%22/%3E%3Cpath%20d%3D%22M4%2010.5v17%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28100%20172%29%20rotate%28-12%29%22%3E%3Cpath%20d%3D%22M2%200h12l-2%2012a4%204%200%200%201-8%200zM8%2016v10M4%2026h8%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28176%20190%29%20rotate%28-28%29%22%3E%3Cpath%20d%3D%22M2%206l16%202-13%2013z%22/%3E%3Cpath%20d%3D%22M18%208c2-3%205-4%207-3M18%208c3-1%206%201%207%203M18%208c1-3%200-6-2-7%22/%3E%3Cpath%20d%3D%22M7%2011l2%202M10%209l2%202%22/%3E%3C/g%3E%3Cg%20transform%3D%22translate%28232%20200%29%20rotate%2820%29%22%3E%3Cpath%20d%3D%22M0%200v9M3.5%200v9M7%200v9M0%209c0%203%207%203%207%200M3.5%2011v17%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22180%22%20height%3D%22180%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.9%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22/%3E%3CfeColorMatrix%20values%3D%220%200%200%200%20.35%20%200%200%200%200%20.3%20%200%200%200%200%20.2%20%200%200%200%20.07%200%22/%3E%3C/filter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%23n%29%22/%3E%3C/svg%3E");background-size:260px 260px,180px 180px;transition:opacity .3s var(--ease)}
+body.nobg::before{opacity:0}
+
+/* Autoplan som liten pille på statuslinja */
+.genbar{flex-direction:row!important;align-items:center!important;justify-content:space-between;flex-wrap:wrap;gap:8px 10px}
+.genbar .stats{flex:1 1 auto;min-width:0}
+.genbar #genBtn,.genbar #genBtn.btn{flex:none;width:auto;min-height:var(--tap);padding:0 16px;font-size:15px;font-weight:600;
+  background:var(--mustard-soft);color:var(--accent);box-shadow:none;border-radius:var(--pill)}
+.genbar #genBtn:hover{background:#DCE8E2}
+.genbar #genBtn.quiet{background:transparent;color:var(--muted);font-weight:500;padding:0 8px;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+.genbar #genBtn.quiet:hover{color:var(--accent)}
+
+/* Rutete duk som bakgrunn på Meny-fanen */
+body[data-view="meny"]::before{
+  background-image:repeating-linear-gradient(0deg,rgba(45,90,76,.032) 0 22px,transparent 22px 44px),repeating-linear-gradient(90deg,rgba(45,90,76,.032) 0 22px,transparent 22px 44px);
+  background-size:auto}
 </style>
 </head>
 <body>
@@ -753,9 +851,9 @@ input[type=checkbox]:checked{
     </div>
     <div class="topright">
       <nav class="tabs" role="tablist">
-        <button role="tab" data-tab="meny" aria-selected="true" id="t-meny">Meny</button>
-        <button role="tab" data-tab="handle" aria-selected="false" id="t-handle">Handleliste</button>
-        <button role="tab" data-tab="retter" aria-selected="false" id="t-retter">Retter</button>
+        <button role="tab" data-tab="meny" aria-selected="true" id="t-meny"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M9.5 14.5h.01M14.5 14.5h.01M9.5 17.5h.01"/></svg><span>Meny</span></button>
+        <button role="tab" data-tab="handle" aria-selected="false" id="t-handle"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 8h14l-1.2 10.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg><span>Handleliste</span></button>
+        <button role="tab" data-tab="retter" aria-selected="false" id="t-retter"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 11h16v3a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/><path d="M2.5 11h19"/><path d="M9 4.5c-.6.8.6 1.7 0 2.5M12 4c-.6.8.6 1.7 0 2.5M15 4.5c-.6.8.6 1.7 0 2.5"/></svg><span>Retter</span></button>
       </nav>
       <button class="gearbtn" id="settingsBtn" aria-label="Innstillinger" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
     </div>
@@ -810,6 +908,11 @@ input[type=checkbox]:checked{
           </div>
           <span>personer</span>
         </div>
+      </section>
+      <section class="scard">
+        <strong class="sethead">Utseende</strong>
+        <label class="check"><input type="checkbox" id="bgToggle" checked> Bakgrunnsmønster med kjøkkentegninger</label>
+        <p class="hint">Gjelder bare denne telefonen eller maskinen.</p>
       </section>
       <div class="setlist" id="acct"></div>
       <p class="credit">Utviklet av Even Kleppa</p>
@@ -951,6 +1054,7 @@ document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",
   ["meny","handle","retter"].forEach(t=>$("#tab-"+t).hidden = t!==S.tab);
   $("#monthbar").hidden = S.tab==="retter";
   try{ localStorage.setItem("mp-tab",S.tab);}catch{}
+  setView();
   render(true);
 }));
 function openSettings(){
@@ -959,7 +1063,7 @@ function openSettings(){
   $("#monthbar").hidden=true; $("#tab-settings").hidden=false;
   document.querySelector(".tabs").hidden=true;
   $("#settingsBtn").setAttribute("aria-expanded","true"); $("#settingsBtn").hidden=true;
-  renderAcct(); render(); window.scrollTo(0,0);
+  renderAcct(); render(); window.scrollTo(0,0); setView();
 }
 function closeSettings(){
   S.settingsOpen=false;
@@ -968,9 +1072,13 @@ function closeSettings(){
   ["meny","handle","retter"].forEach(t=>$("#tab-"+t).hidden = t!==S.tab);
   $("#monthbar").hidden = S.tab==="retter";
   window.scrollTo(0,0); if(S.tab==="meny") S.scrollToday=true;
-  render(true);
+  setView(); render(true);
 }
 $("#settingsBtn").addEventListener("click",openSettings);
+function setView(){ document.body.dataset.view = S.settingsOpen ? "settings" : S.tab; }
+function applyBg(on){ document.body.classList.toggle("nobg",!on); const t=$("#bgToggle"); if(t) t.checked=on; }
+try{ applyBg(localStorage.getItem("mp-bg")!=="off"); }catch{ applyBg(true); }
+$("#bgToggle").addEventListener("change",e=>{ applyBg(e.target.checked); try{ localStorage.setItem("mp-bg",e.target.checked?"on":"off"); }catch{} });
 $("#settingsBack").addEventListener("click",closeSettings);
 function shiftMonth(n){
   if(periodLen()){ S.start=addDays(S.start||defaultStart(), n*periodLen()); }
@@ -1021,6 +1129,7 @@ function renderStats(){
   if(S.undo && S.undo.pk===periodKey()) h+=`<button class="linkbtn" data-act="undo">Angre automatisk plan</button>`;
   $("#mStats").innerHTML=h;
   $("#genBtn").disabled=!S.canWrite;
+  updateGenBtn();
 }
 function plansLoaded(){ return periodYMs().every(ym=>S.loadedYM.has(ym)); }
 
@@ -1097,8 +1206,19 @@ function generatePlan(mode, rand=Math.random){
   toast(filled ? `${filled} ${filled===1?"middag":"middager"} lagt inn${skipped?`, ${skipped} dager uten passende rett`:""}` : "Ingen tomme dager å fylle");
   return {filled,skipped};
 }
+// Liten knapp på statuslinja: viser hvor mange dager som mangler rett
+function updateGenBtn(){
+  const b=$("#genBtn"); if(!b) return;
+  let label, quiet=false;
+  if(S.genOpen) label="Lukk";
+  else if(!plansLoaded()||!S.loaded.r) label="✦ Forslag";
+  else if(isPast()) { label="✦ Forslag"; quiet=true; }
+  else { const e=emptyDays(); if(e){ label=`✦ Fyll ${e} ${e===1?"tom dag":"tomme dager"}`; } else { label="Lag ny plan"; quiet=true; } }
+  b.textContent=label; b.classList.toggle("quiet",quiet&&!S.genOpen);
+  b.setAttribute("aria-label", S.genOpen?"Lukk autoplan":"Lag middagsplan automatisk");
+}
 function renderGen(){
-  const el=$("#genPanel"); el.hidden=!S.genOpen; $("#genBtn").textContent=S.genOpen?"Lukk":"Lag middagsplan";
+  const el=$("#genPanel"); el.hidden=!S.genOpen; updateGenBtn();
   if(!S.genOpen) return;
   const from=genFrom(), empty=emptyDays(), w=periodWord();
   if(isPast()){ el.innerHTML=`<div class="phead"><div><strong>${w.replace(/^./,c=>c.toUpperCase())} er over</strong><span>Bla fram til denne eller en kommende periode for å lage en plan.</span></div></div>`; return; }
@@ -1799,7 +1919,7 @@ async function openHousehold(h){
   S.db=await makeDb(sb,h.id);
   showApp(true);
   try{ const t=localStorage.getItem("mp-tab"); if(t&&t!=="meny") document.querySelector(`.tabs [data-tab="${t}"]`)?.click(); }catch{}
-  S.scrollToday=true; render(true); attachData(S.db); renderAcct();
+  S.scrollToday=true; setView(); render(true); attachData(S.db); renderAcct();
 }
 function settingsHtml(){
   const m=S.set.shopMode, dis=S.canWrite?"":"disabled";
