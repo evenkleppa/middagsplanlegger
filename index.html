@@ -702,7 +702,11 @@ input[type=checkbox]:checked{
   #mLabel{grid-column:2;grid-row:1;align-self:end}
   #monthbar .msub{grid-column:2;grid-row:2;align-self:start;font-size:12px;line-height:1.3;margin:1px 0 0}
   #monthbar:has(#mSub[hidden]) #mLabel{grid-row:1/3;align-self:center}
-  .tabs{border-top:0}
+  /* Tydelig skille mellom periodelinja og fanene, og mellom fanene */
+  .tabs{border-top:1px solid #DAD6CE;background:rgba(255,255,255,.97)}
+  #monthbar{background:rgba(255,255,255,.97)!important}
+  .tabs button{position:relative}
+  .tabs button + button::before{content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:1px;height:28px;background:#DAD6CE;pointer-events:none}
   #toast{bottom:calc(var(--tabbar) + var(--periodbar) + 16px + env(safe-area-inset-bottom,0px))}
   /* Mer plass når man skriver: skjul linjene nederst */
   body:has(.dish:focus,.pers:focus,.pin input:focus,.packform input:focus,.search:focus,.field input:focus,.ing input:focus) .tabs,
