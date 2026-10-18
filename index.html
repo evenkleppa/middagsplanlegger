@@ -821,6 +821,18 @@ body[data-view="settings"]::before{
   #monthbar{bottom:calc(var(--tabbar) - 6px + env(safe-area-inset-bottom,0px));padding-bottom:10px;background:#fff!important;-webkit-backdrop-filter:none;backdrop-filter:none}
   .tabs{background:#fff!important;-webkit-backdrop-filter:none;backdrop-filter:none}
 }
+
+/* Dagvalg for retter */
+.daysel{display:flex!important;flex-direction:column;gap:10px!important}
+.daysel .dpresets{display:flex;flex-wrap:wrap;gap:8px}
+.daysel .dpresets .chip{background:var(--surface);box-shadow:var(--shadow-sm)}
+.daysel .dpresets .chip[aria-pressed="true"]{background:var(--accent);color:#fff}
+.dchips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (min-width:560px){ .dchips{grid-template-columns:repeat(7,minmax(0,1fr));gap:6px} }
+.dchip{min-height:var(--tap);border:0;border-radius:var(--pill);background:var(--surface);color:var(--muted);font-weight:600;font-size:14px;box-shadow:var(--shadow-sm);transition:background-color .2s var(--ease),color .2s var(--ease),transform .15s var(--ease)}
+.dchip[aria-pressed="true"]{background:var(--mustard-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.dchip:active{transform:scale(.94)}
+.daysel .check{flex:none!important;margin:0!important}
 </style>
 </head>
 <body>
@@ -1177,7 +1189,21 @@ function renderDays(){
 }
 
 /* ---------- automatic plan ---------- */
-function blockedOn(r,dow){ return (dow===4&&!!r.notFri)||(dow===5&&!!r.notSat)||(dow===6&&!!r.notSun); }
+// Hvilke ukedager (0=man … 6=søn) retten kan brukes. Eldre retter med «Ikke fredag/lørdag/søndag» tolkes automatisk.
+const ALL_DAYS=[0,1,2,3,4,5,6], WEEKDAYS=[0,1,2,3], WEEKEND=[4,5,6];
+function recipeDays(r){
+  if(r && Array.isArray(r.days) && r.days.length) return [...r.days].sort();
+  return ALL_DAYS.filter(d=>!((d===4&&r&&r.notFri)||(d===5&&r&&r.notSat)||(d===6&&r&&r.notSun)));
+}
+const sameDays=(a,b)=>a.length===b.length&&a.every((x,i)=>x===b[i]);
+function daysTag(days){
+  if(sameDays(days,ALL_DAYS)) return "";
+  if(sameDays(days,WEEKEND)) return "Kun helg (fre–søn)";
+  if(sameDays(days,WEEKDAYS)) return "Hverdager (man–tor)";
+  const off=ALL_DAYS.filter(d=>!days.includes(d));
+  return off.length<=3 ? "Ikke "+off.map(d=>DOW[d]).join(" · ") : "Kun "+days.map(d=>DOW[d]).join(" · ");
+}
+function blockedOn(r,dow){ return !recipeDays(r).includes(dow); }
 function genFrom(){ const days=periodDays(); const i=days.findIndex(d=>+d>=+TODAY); return i<0?days.length:i; }
 function isPast(){ return genFrom()>=periodDays().length; }
 function emptyDays(){ const days=periodDays(); let c=0; for(let i=genFrom(); i<days.length; i++){ const e=entryOf(days[i]); if(!(e&&e.recipeId)) c++; } return c; }
@@ -1551,8 +1577,8 @@ function renderRecipes(){
     const n=(r.ingredients||[]).filter(i=>i.name).length; const tags=[];
     if(r.leftover) tags.push(`<span class="tag">Rester</span>`);
     else if(!n) tags.push(`<span class="tag warn">Mangler ingredienser</span>`);
-    if(r.weekend) tags.push(`<span class="tag sug">Helgerett</span>`);
-    const no=[r.notFri&&"fre",r.notSat&&"lør",r.notSun&&"søn"].filter(Boolean); if(no.length) tags.push(`<span class="tag">Ikke ${no.join(" · ")}</span>`);
+    const dt=daysTag(recipeDays(r)); if(dt) tags.push(`<span class="tag">${dt}</span>`);
+    if(r.weekend && dt!=="Kun helg (fre–søn)") tags.push(`<span class="tag sug">Helst i helgen</span>`);
     if(r.suggested) tags.push(`<span class="tag sug">Forslag – sjekk mengder</span>`);
     return `<button class="rcard" data-id="${r.id}"><strong>${esc(r.name)}</strong><span>${r.leftover?"Ingen innkjøp":`${n} ${n===1?"ingrediens":"ingredienser"} · for ${r.servings||S.defP} pers`}</span>${tags.length?`<div class="tags">${tags.join("")}</div>`:""}</button>`;
   }).join("");
@@ -1581,11 +1607,15 @@ function openEditor(id){
       <label class="field">Mengdene er for<span class="stepper" style="margin-top:0"><button type="button" data-act="sminus" aria-label="Færre">−</button><input id="eServ" type="number" min="1" max="50" value="${r?r.servings||S.defP:S.defP}" ${ro}><button type="button" data-act="splus" aria-label="Flere">+</button></span></label>
       <span style="padding-bottom:8px;color:var(--muted);font-size:14px">personer</span>
     </div>
-    <fieldset class="rules"><legend>Når passer retten?</legend>
-      <label class="check"><input type="checkbox" id="eWeekend" ${r&&r.weekend?"checked":""} ${ro}> Helgerett <small>(helst fre–søn)</small></label>
-      <label class="check"><input type="checkbox" id="eNotFri" ${r&&r.notFri?"checked":""} ${ro}> Ikke fredag</label>
-      <label class="check"><input type="checkbox" id="eNotSat" ${r&&r.notSat?"checked":""} ${ro}> Ikke lørdag</label>
-      <label class="check"><input type="checkbox" id="eNotSun" ${r&&r.notSun?"checked":""} ${ro}> Ikke søndag</label>
+    <fieldset class="rules daysel" id="eDays"><legend>Når passer retten?</legend>
+      <div class="dpresets">
+        <button type="button" class="chip" data-preset="all" ${ro}>Alle dager</button>
+        <button type="button" class="chip" data-preset="weekdays" ${ro}>Hverdager</button>
+        <button type="button" class="chip" data-preset="weekend" ${ro}>Helg (fre–søn)</button>
+      </div>
+      <span class="setlabel">Kan brukes på</span>
+      <div class="dchips">${DOW.map((d,i)=>`<button type="button" class="dchip" data-dow="${i}" aria-pressed="${recipeDays(r||{}).includes(i)}" aria-label="${DOWFULL[i]}" ${ro}>${d.replace(/^./,c=>c.toUpperCase())}</button>`).join("")}</div>
+      <label class="check"><input type="checkbox" id="eWeekend" ${r&&r.weekend?"checked":""} ${ro}> Legg den helst i helgen</label>
     </fieldset>
     <label class="check"><input type="checkbox" id="eLeft" ${r&&r.leftover?"checked":""} ${ro}> Rester eller noe som ikke krever innkjøp <small style="color:var(--muted)">(kommer ikke med i automatisk plan)</small></label>
     <div>
@@ -1598,11 +1628,26 @@ function openEditor(id){
       <div><button class="btn primary" data-act="save" ${ro}>Lagre rett</button><button class="btn" data-act="back">Avbryt</button></div>
       ${r&&S.canWrite?`<div><button class="btn danger" data-act="del">Slett rett</button></div>`:""}
     </div>`;
+  syncPresets();
   if(!r) $("#eName").focus();
   window.scrollTo({top:0});
 }
 function closeEditor(){ S.editing=null; $("#editor").hidden=true; $("#rBrowse").hidden=false; renderRecipes(); }
+function editorDays(){ return [...document.querySelectorAll("#eDays .dchip")].filter(c=>c.getAttribute("aria-pressed")==="true").map(c=>+c.dataset.dow); }
+function syncPresets(){
+  const d=editorDays();
+  document.querySelectorAll("#eDays [data-preset]").forEach(b=>{
+    const want=b.dataset.preset==="all"?ALL_DAYS:b.dataset.preset==="weekend"?WEEKEND:WEEKDAYS;
+    b.setAttribute("aria-pressed", sameDays(d,want));
+  });
+}
 $("#editor").addEventListener("click",e=>{
+  const dc=e.target.closest(".dchip");
+  if(dc){ dc.setAttribute("aria-pressed", dc.getAttribute("aria-pressed")!=="true"); syncPresets(); return; }
+  const pr=e.target.closest("[data-preset]");
+  if(pr){ const want=pr.dataset.preset==="all"?ALL_DAYS:pr.dataset.preset==="weekend"?WEEKEND:WEEKDAYS;
+    document.querySelectorAll("#eDays .dchip").forEach(c=>c.setAttribute("aria-pressed", want.includes(+c.dataset.dow)));
+    syncPresets(); return; }
   const b=e.target.closest("[data-act]");
   if(e.target.classList.contains("del")){ e.target.closest(".ing").remove(); return; }
   if(!b) return; const a=b.dataset.act;
@@ -1622,6 +1667,7 @@ $("#editor").addEventListener("keydown",e=>{
 });
 function saveRecipe(){
   const name=$("#eName").value.trim(); if(!name){ $("#eName").focus(); toast("Gi retten et navn"); return; }
+  const days=editorDays(); if(!days.length){ toast("Velg minst én dag retten kan brukes"); return; }
   const dup=[...S.recipes.values()].find(r=>norm(r.name)===norm(name)&&r.id!==S.editing);
   if(dup){ toast(`Det finnes allerede en rett som heter «${dup.name}»`); return; }
   const ingredients=[...document.querySelectorAll("#eIngs .ing")].map(row=>({
@@ -1630,7 +1676,7 @@ function saveRecipe(){
     unit:row.querySelector(".unit").value
   })).filter(i=>i.name);
   const body={name, servings:Math.max(1,parseInt($("#eServ").value)||S.defP), ingredients, leftover:$("#eLeft").checked,
-    weekend:$("#eWeekend").checked, notFri:$("#eNotFri").checked, notSat:$("#eNotSat").checked, notSun:$("#eNotSun").checked};
+    weekend:$("#eWeekend").checked, days};
   const ref = S.editing==="new" ? S.db.collection("recipes").doc() : S.db.doc("recipes/"+S.editing);
   S.recipes.set(ref.id,{id:ref.id,...body});
   write("recipes/"+ref.id,()=>ref.set(body));
