@@ -1004,6 +1004,13 @@ function anchorFor(date){
 }
 // Perioden som vises først: den man handler til i dag eller holder på med nå
 function defaultStart(){ return anchorFor(addDays(TODAY,S.set.startOffset?1:0)); }
+// Starten på handleuka man er i nå (brukes som første uke ved annenhver uke)
+function currentWeekStart(){ const d=addDays(TODAY,S.set.startOffset?1:0); return addDays(d,-((dowIdx(d)-startDow()+7)%7)); }
+// Ekte ukenummer for sju dager. Går de over to kalenderuker, vises begge, f.eks. «Uke 42–43».
+function weekLabel(days){
+  const ws=[...new Set(days.map(isoWeek))];
+  return ws.length===1 ? "Uke "+ws[0] : "Uke "+ws[0]+"–"+ws[ws.length-1];
+}
 function nextPeriodStart(){ let d=addDays(TODAY,S.set.startOffset?1:0); while(dowIdx(d)!==startDow()) d=addDays(d,1); return d; }
 function periodDays(){
   const len=periodLen();
@@ -1032,11 +1039,11 @@ function savePlanYM(ym){
   write("plans/"+ym, () => S.db.doc("plans/"+ym).set(body));
 }
 function saveDates(dates){ new Set(dates.map(ymOf)).forEach(savePlanYM); }
-function settingsBody(){ return {defaultPersons:S.defP, shopMode:S.set.shopMode, shopDay:S.set.shopDay, startOffset:S.set.startOffset, biweekRef:S.set.biweekRef}; }
+function settingsBody(){ return {defaultPersons:S.defP, shopMode:S.set.shopMode, shopDay:S.set.shopDay, startOffset:S.set.startOffset, biweekRef:S.set.biweekRef, biweekV:2}; }
 function saveSettings(patch){
   const before=JSON.stringify(S.set);
   S.set={...S.set,...patch};
-  if(S.set.shopMode==="biweek" && (patch.shopMode||patch.shopDay!==undefined||patch.startOffset!==undefined)) S.set.biweekRef=fmtKey(nextPeriodStart());
+  if(S.set.shopMode==="biweek" && (patch.shopMode||patch.shopDay!==undefined||patch.startOffset!==undefined)) S.set.biweekRef=fmtKey(currentWeekStart());
   if(JSON.stringify(S.set)!==before) resetView();
   write("settings/main",()=>S.db.doc("settings/main").set(settingsBody()));
   render(true); renderAcct();
@@ -1103,7 +1110,7 @@ let daysPending=false;
 function render(force){
   const lbl=$("#mLabel"); lbl.textContent=periodLabel(); lbl.style.textTransform="none";
   const ms=$("#mSub");
-  if(periodLen()){ const sd=shopDateOf(periodDays()[0]); ms.textContent="Handles "+DOWFULL[dowIdx(sd)]+" "+shortDate(sd); ms.hidden=false; } else ms.hidden=true;
+  if(periodLen()){ const pd=periodDays(), sd=shopDateOf(pd[0]); ms.textContent=weekLabel(pd)+" · Handles "+DOWFULL[dowIdx(sd)]+" "+shortDate(sd); ms.hidden=false; } else ms.hidden=true;
   $("#prevM").setAttribute("aria-label", periodLen()?"Forrige periode":"Forrige måned");
   $("#nextM").setAttribute("aria-label", periodLen()?"Neste periode":"Neste måned");
   if(document.activeElement!==$("#defP")) $("#defP").value=S.defP;
@@ -1146,7 +1153,7 @@ function renderDays(){
   days.forEach((date,i)=>{
     const d=date.getDate(), dow=dowIdx(date), k=fmtKey(date);
     if(!len){ if(d===1||dow===0) h+=`<li class="weeksep">Uke ${isoWeek(date)}</li>`; }
-    else if(len===14 && i%7===0) h+=`<li class="weeksep">${i?"Uke 2":"Uke 1"}</li>`;
+    else if(len===14 && i%7===0) h+=`<li class="weeksep">${weekLabel(days.slice(i,i+7))}</li>`;
     const e=entryOf(date)||{}; const r=e.recipeId?S.recipes.get(e.recipeId):null;
     const name = r ? r.name : (e.recipeId ? (e.label||"Slettet rett") : "");
     const isToday = +date===+TODAY;
@@ -1341,7 +1348,7 @@ daysEl.addEventListener("change",e=>{
 function subWeeks(){
   const days=periodDays(), len=periodLen();
   if(len===7) return [];
-  if(len===14) return [{id:"1",label:"Uke 1",days:days.slice(0,7)},{id:"2",label:"Uke 2",days:days.slice(7)}];
+  if(len===14) return [{id:"1",label:weekLabel(days.slice(0,7)),days:days.slice(0,7)},{id:"2",label:weekLabel(days.slice(7)),days:days.slice(7)}];
   const out=[]; let cur=null;
   for(const d of days){ const w=isoWeek(d); if(!cur||cur.id!==String(w)){ cur={id:String(w),label:"Uke "+w,days:[]}; out.push(cur);} cur.days.push(d); }
   return out;
@@ -1658,6 +1665,10 @@ function attachData(db){
     const next={shopMode:["week","biweek","month"].includes(v.shopMode)?v.shopMode:"month",
       shopDay:Number.isInteger(v.shopDay)?v.shopDay:4, startOffset:v.startOffset?1:0, biweekRef:v.biweekRef||null};
     if(JSON.stringify(next)!==JSON.stringify(S.set)){ S.set=next; resetView(); renderAcct(); render(true); } else render();
+    if(next.shopMode==="biweek" && !v.biweekV && S.canWrite){
+      S.set.biweekRef=fmtKey(currentWeekStart()); resetView(); render(true);
+      write("settings/main",()=>S.db.doc("settings/main").set(settingsBody()));
+    }
   }, e=>console.error(e));
   db.doc("pantry/current").onSnapshot(d=>{
     const v=d.exists?d.data():null;
@@ -1902,8 +1913,8 @@ $("#authStep").addEventListener("click",e=>{
     if(k==="plus") o.persons=Math.min(50,o.persons+1);
     if(k==="finish"){ busy(async()=>{
       const S2={shopMode:o.shopMode||"month", shopDay:o.shopDay, startOffset:o.startOffset, biweekRef:null};
-      if(S2.shopMode==="biweek"){ S.set={...S2}; S2.biweekRef=fmtKey(nextPeriodStart()); }
-      const {error}=await sb.from("docs").upsert({household_id:A.h.id, path:"settings/main", data:{defaultPersons:o.persons, ...S2}});
+      if(S2.shopMode==="biweek"){ S.set={...S2}; S2.biweekRef=fmtKey(currentWeekStart()); }
+      const {error}=await sb.from("docs").upsert({household_id:A.h.id, path:"settings/main", data:{defaultPersons:o.persons, ...S2, biweekV:2}});
       if(error) throw error;
       await openHousehold(A.h);
     }); return; }
