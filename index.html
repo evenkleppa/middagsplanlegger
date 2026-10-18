@@ -628,6 +628,91 @@ input[type=checkbox]:checked{
   .tabs button{min-height:var(--tap);border-radius:10px;padding:0 22px;color:var(--ink);font-weight:500}
   .tabs button[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600;box-shadow:0 3px 8px rgba(70,55,30,.13),0 3px 1px rgba(70,55,30,.04)}
 }
+
+/* Handlevaner og startskjerm */
+.setcard{display:flex;flex-direction:column;gap:12px;padding-bottom:16px;margin-bottom:6px;border-bottom:.5px solid var(--line)}
+.sethead{font:700 20px/1.2 var(--f-display);letter-spacing:-.02em;color:var(--ink)}
+.setrow{display:flex;flex-direction:column;gap:8px}
+.setlabel{font-size:13px;font-weight:600;color:var(--muted)}
+.setopts{display:flex;flex-wrap:wrap;gap:8px}
+.setopts .chip{box-shadow:none;background:var(--sunk)}
+.setopts .chip[aria-pressed="true"]{background:var(--accent);color:#fff}
+.obstep{margin:0;font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.obsub{font-size:19px!important;margin-top:6px!important}
+.oblist{display:flex;flex-direction:column;gap:10px}
+.obopt{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;min-height:72px;padding:16px 18px;border:0;border-radius:16px;background:var(--bg);transition:background-color .2s var(--ease),transform .15s var(--ease),box-shadow .2s var(--ease)}
+.obopt strong{font:600 18px/1.2 var(--f-display);color:var(--ink)}
+.obopt span{font-size:15px;color:var(--muted);line-height:1.4}
+.obopt:hover{background:var(--mustard-soft)}
+.obopt:active{transform:scale(.98)}
+.obstepper{align-self:flex-start}
+#weeks[hidden]{display:none!important}
+.acct .setcard,.acct .setrow{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+.acct .setrow{gap:8px}
+.acct .setopts{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px}
+.acct .sethead{text-align:left}
+
+/* Tannhjul og innstillingsside */
+.topright{display:flex;align-items:center;gap:10px;flex:none}
+.gearbtn{width:var(--tap);height:var(--tap);flex:none;display:grid;place-items:center;border:0;border-radius:50%;background:var(--surface);color:var(--muted);box-shadow:var(--shadow-sm);transition:color .2s var(--ease),transform .15s var(--ease),background-color .2s var(--ease)}
+.gearbtn:hover{color:var(--accent)}
+.gearbtn:active{transform:scale(.92) rotate(30deg)}
+.msub{margin:0;text-align:center;font-size:14px;font-weight:500;color:var(--muted)}
+#monthbar{gap:6px}
+.settings-view{display:flex;flex-direction:column;gap:16px}
+.setbar{margin:-6px 0 -8px}
+.backbtn{font-size:17px;padding-left:0}
+.settitle{font:700 30px/1.15 var(--f-display);letter-spacing:-.025em;margin:0}
+.setlist{display:flex;flex-direction:column;gap:16px}
+.scard{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow-sm);padding:18px;display:flex;flex-direction:column;gap:12px}
+.scard .persons{justify-content:flex-start}
+.scard .setrow{display:flex;flex-direction:column;gap:8px}
+.scard .setopts{display:flex;flex-wrap:wrap;gap:8px}
+.srow{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;min-height:var(--tap)}
+.srow-val{display:flex;align-items:center;gap:8px}
+.srow .code{font:600 17px var(--f-body);letter-spacing:.12em;background:var(--mustard-soft);color:var(--accent);border-radius:8px;padding:4px 10px}
+.srow-mail{font-weight:600;word-break:break-all}
+.scard .btn.danger{align-self:stretch}
+.tabs[hidden]{display:none!important}
+.credit{margin:4px 0 0;text-align:center;font-size:13px;color:var(--muted)}
+@media (min-width:560px){.scard .btn.danger{align-self:flex-start}}
+
+/* Periodelinje nederst på mobil, rett over fanene */
+.opts.up{top:auto;bottom:calc(100% + 6px)}
+.day{scroll-margin-top:12px}
+@media (max-width:719px){
+  :root{--periodbar:52px}
+  body{padding-bottom:calc(var(--tabbar) + var(--periodbar) + 28px + env(safe-area-inset-bottom,0px))}
+  #monthbar{
+    position:fixed;left:0;right:0;z-index:39;
+    bottom:calc(var(--tabbar) + env(safe-area-inset-bottom,0px));
+    gap:0;
+    padding:3px max(8px, env(safe-area-inset-left,0px)) 4px;border-radius:0;
+    background:rgba(255,255,255,.88);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);
+    border-top:.5px solid var(--line);box-shadow:none;
+  }
+  #monthbar .monthnav{gap:4px}
+  #monthbar .iconbtn{background:transparent;width:var(--tap);height:var(--tap);font-size:24px}
+  #monthbar .iconbtn:active{background:var(--sunk)}
+  #monthbar h2{font-size:17px;font-weight:600;letter-spacing:-.01em;line-height:1.15}
+  #monthbar{display:grid;grid-template-columns:var(--tap) minmax(0,1fr) var(--tap);grid-template-rows:auto auto;align-items:center;column-gap:4px;min-height:var(--periodbar)}
+  #monthbar .monthnav{display:contents}
+  #prevM{grid-column:1;grid-row:1/3}
+  #nextM{grid-column:3;grid-row:1/3}
+  #mLabel{grid-column:2;grid-row:1;align-self:end}
+  #monthbar .msub{grid-column:2;grid-row:2;align-self:start;font-size:12px;line-height:1.3;margin:1px 0 0}
+  #monthbar:has(#mSub[hidden]) #mLabel{grid-row:1/3;align-self:center}
+  .tabs{border-top:0}
+  #toast{bottom:calc(var(--tabbar) + var(--periodbar) + 16px + env(safe-area-inset-bottom,0px))}
+  /* Mer plass når man skriver: skjul linjene nederst */
+  body:has(.dish:focus,.pers:focus,.pin input:focus,.packform input:focus,.search:focus,.field input:focus,.ing input:focus) .tabs,
+  body:has(.dish:focus,.pers:focus,.pin input:focus,.packform input:focus,.search:focus,.field input:focus,.ing input:focus) #monthbar{visibility:hidden}
+}
+@media (min-width:720px){
+  #monthbar{padding:10px 14px}
+  #monthbar h2{font-size:20px}
+  #monthbar .iconbtn{width:40px;height:40px}
+}
 </style>
 </head>
 <body>
@@ -659,14 +744,17 @@ input[type=checkbox]:checked{
 </g></svg>
       <div class="brand-text">
         <h1><span>Middagsplanen</span></h1>
-        <p id="sub">Planlegg måneden, så regner appen ut handlelista.</p>
+        <p id="sub">Planlegg middagene, så regner appen ut handlelista.</p>
       </div>
     </div>
-    <nav class="tabs" role="tablist">
-      <button role="tab" data-tab="meny" aria-selected="true" id="t-meny">Meny</button>
-      <button role="tab" data-tab="handle" aria-selected="false" id="t-handle">Handleliste</button>
-      <button role="tab" data-tab="retter" aria-selected="false" id="t-retter">Retter</button>
-    </nav>
+    <div class="topright">
+      <nav class="tabs" role="tablist">
+        <button role="tab" data-tab="meny" aria-selected="true" id="t-meny">Meny</button>
+        <button role="tab" data-tab="handle" aria-selected="false" id="t-handle">Handleliste</button>
+        <button role="tab" data-tab="retter" aria-selected="false" id="t-retter">Retter</button>
+      </nav>
+      <button class="gearbtn" id="settingsBtn" aria-label="Innstillinger" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
+    </div>
   </header>
 
   <div class="bar" id="monthbar">
@@ -675,15 +763,7 @@ input[type=checkbox]:checked{
       <h2 id="mLabel"></h2>
       <button class="iconbtn" id="nextM" aria-label="Neste måned">›</button>
     </div>
-    <div class="persons">
-      <span>Vanligvis</span>
-      <div class="stepper">
-        <button id="defMinus" aria-label="Færre personer">−</button>
-        <input id="defP" type="number" min="1" max="50" aria-label="Standard antall personer">
-        <button id="defPlus" aria-label="Flere personer">+</button>
-      </div>
-      <span>personer</span>
-    </div>
+    <p class="msub" id="mSub" hidden></p>
   </div>
 
   <main>
@@ -712,8 +792,25 @@ input[type=checkbox]:checked{
       </div>
       <div id="editor" class="editor" hidden></div>
     </section>
+    <section id="tab-settings" class="settings-view" hidden>
+      <div class="setbar"><button class="linkbtn backbtn" id="settingsBack">‹ Tilbake</button></div>
+      <h2 class="settitle">Innstillinger</h2>
+      <section class="scard">
+        <strong class="sethead">Størrelse på husholdning</strong>
+        <p class="hint">Oppskriftene skaleres til dette antallet. Dere kan fortsatt endre antall for hver enkelt dag i menyen.</p>
+        <div class="persons">
+          <div class="stepper">
+            <button id="defMinus" aria-label="Færre personer">−</button>
+            <input id="defP" type="number" min="1" max="50" aria-label="Størrelse på husholdning">
+            <button id="defPlus" aria-label="Flere personer">+</button>
+          </div>
+          <span>personer</span>
+        </div>
+      </section>
+      <div class="setlist" id="acct"></div>
+      <p class="credit">Utviklet av Even Kleppa</p>
+    </section>
   </main>
-  <footer class="acct" id="acct"></footer>
   <datalist id="ingNames"></datalist>
   <div id="toast" role="status" aria-live="polite"></div>
 </div>
@@ -732,9 +829,11 @@ const nf2 = new Intl.NumberFormat("nb-NO",{maximumFractionDigits:2});
 const today = new Date();
 const S = {
   db:null, canWrite:true,
-  recipes:new Map(), ingr:new Map(), defP:2, plan:{days:{}},
+  recipes:new Map(), ingr:new Map(), defP:2,
+  plans:{}, loadedYM:new Set(), start:null,
+  set:{shopMode:"month", shopDay:4, startOffset:0, biweekRef:null},
   month: today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0"),
-  tab:"meny", week:"all", pantry:{}, pantryAt:null, pantryOpen:false, genOpen:false, undo:null, loaded:{r:false,p:false}, editing:null, packEdit:null
+  tab:"meny", week:"all", pantry:{}, pantryAt:null, pantryOpen:false, genOpen:false, undo:null, loaded:{r:false}, editing:null, packEdit:null
 };
 
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -769,19 +868,80 @@ function write(path, fn){
   queues[path] = q.then(fn).catch(e => { console.error(e); if(e&&e.code==="invalid_argument") S.canWrite=false; toast(errMsg(e)); });
   return queues[path];
 }
-function savePlan(){
+/* ---------- handleperioder (måned, uke eller annenhver uke) ---------- */
+const DAY=864e5;
+const MONTHS_SHORT=["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","des"];
+const fmtKey=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const keyDate=k=>{ const [y,m,d]=k.split("-").map(Number); return new Date(y,m-1,d); };
+const ymOf=d=>fmtKey(d).slice(0,7);
+const addDays=(d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+const dowIdx=d=>(d.getDay()+6)%7;
+const TODAY=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+const shortDate=d=>d.getDate()+". "+MONTHS_SHORT[d.getMonth()];
+function periodLen(){ return S.set.shopMode==="week"?7:S.set.shopMode==="biweek"?14:0; }
+function startDow(){ return (S.set.shopDay+(S.set.startOffset?1:0))%7; }
+function anchorFor(date){
+  let start=addDays(date,-((dowIdx(date)-startDow()+7)%7));
+  if(S.set.shopMode==="biweek"){
+    const ref=S.set.biweekRef?keyDate(S.set.biweekRef):start;
+    const wk=Math.round((start-ref)/DAY/7);
+    if(((wk%2)+2)%2===1) start=addDays(start,-7);
+  }
+  return start;
+}
+// Perioden som vises først: den man handler til i dag eller holder på med nå
+function defaultStart(){ return anchorFor(addDays(TODAY,S.set.startOffset?1:0)); }
+function nextPeriodStart(){ let d=addDays(TODAY,S.set.startOffset?1:0); while(dowIdx(d)!==startDow()) d=addDays(d,1); return d; }
+function periodDays(){
+  const len=periodLen();
+  if(!len){ const [y,m]=ymParts(); return Array.from({length:daysIn()},(_,i)=>new Date(y,m-1,i+1)); }
+  if(!S.start) S.start=defaultStart();
+  return Array.from({length:len},(_,i)=>addDays(S.start,i));
+}
+function periodYMs(){ return [...new Set(periodDays().map(ymOf))]; }
+function periodKey(){ return periodLen() ? fmtKey(S.start||defaultStart())+"+"+periodLen() : S.month; }
+function shopDateOf(start){ return addDays(start,S.set.startOffset?-1:0); }
+function periodLabel(){
+  if(!periodLen()){ const [y,m]=ymParts(); return MONTHS[m-1].replace(/^./,c=>c.toUpperCase())+" "+y; }
+  const days=periodDays(), a=days[0], b=days[days.length-1];
+  const left=DOW[dowIdx(a)]+" "+a.getDate()+"."+(a.getMonth()!==b.getMonth()?" "+MONTHS_SHORT[a.getMonth()]:"");
+  return (left+" – "+DOW[dowIdx(b)]+" "+shortDate(b)).replace(/^./,c=>c.toUpperCase());
+}
+function periodWord(){ return S.set.shopMode==="week"?"uka":S.set.shopMode==="biweek"?"perioden":"måneden"; }
+function entryOf(d){ const p=S.plans[ymOf(d)]; return p&&p.days ? p.days[d.getDate()] : undefined; }
+function setEntryOf(d,val){
+  const ym=ymOf(d); if(!S.plans[ym]) S.plans[ym]={days:{}}; if(!S.plans[ym].days) S.plans[ym].days={};
+  if(val && Object.keys(val).length) S.plans[ym].days[d.getDate()]=val; else delete S.plans[ym].days[d.getDate()];
+}
+function savePlanYM(ym){
   if(!S.db) return;
-  const m=S.month, body={days:JSON.parse(JSON.stringify(S.plan.days))};
-  write("plans/"+m, () => S.db.doc("plans/"+m).set(body));
+  const body={days:JSON.parse(JSON.stringify((S.plans[ym]&&S.plans[ym].days)||{}))};
+  write("plans/"+ym, () => S.db.doc("plans/"+ym).set(body));
+}
+function saveDates(dates){ new Set(dates.map(ymOf)).forEach(savePlanYM); }
+function settingsBody(){ return {defaultPersons:S.defP, shopMode:S.set.shopMode, shopDay:S.set.shopDay, startOffset:S.set.startOffset, biweekRef:S.set.biweekRef}; }
+function saveSettings(patch){
+  const before=JSON.stringify(S.set);
+  S.set={...S.set,...patch};
+  if(S.set.shopMode==="biweek" && (patch.shopMode||patch.shopDay!==undefined||patch.startOffset!==undefined)) S.set.biweekRef=fmtKey(nextPeriodStart());
+  if(JSON.stringify(S.set)!==before) resetView();
+  write("settings/main",()=>S.db.doc("settings/main").set(settingsBody()));
+  render(true); renderAcct();
 }
 function saveDefP(v){
   S.defP=v; render();
   clearTimeout(saveDefP.t);
-  saveDefP.t=setTimeout(()=>write("settings/main",()=>S.db.doc("settings/main").set({defaultPersons:v})),500);
+  saveDefP.t=setTimeout(()=>write("settings/main",()=>S.db.doc("settings/main").set(settingsBody())),500);
+}
+function resetView(){
+  S.month=TODAY.getFullYear()+"-"+String(TODAY.getMonth()+1).padStart(2,"0");
+  S.start=periodLen()?defaultStart():null; S.week="all"; S.genOpen=false; S.undo=null; S.packEdit=null; S.scrollToday=true;
+  subPlans();
 }
 
 /* ---------- tabs & month ---------- */
 document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",()=>{
+  if(b.dataset.tab==="meny" && S.tab!=="meny") S.scrollToday=true;
   S.tab=b.dataset.tab;
   document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));
   ["meny","handle","retter"].forEach(t=>$("#tab-"+t).hidden = t!==S.tab);
@@ -789,10 +949,30 @@ document.querySelectorAll(".tabs button").forEach(b=>b.addEventListener("click",
   try{ localStorage.setItem("mp-tab",S.tab);}catch{}
   render(true);
 }));
+function openSettings(){
+  S.settingsOpen=true; closeOpts();
+  ["meny","handle","retter"].forEach(t=>$("#tab-"+t).hidden=true);
+  $("#monthbar").hidden=true; $("#tab-settings").hidden=false;
+  document.querySelector(".tabs").hidden=true;
+  $("#settingsBtn").setAttribute("aria-expanded","true"); $("#settingsBtn").hidden=true;
+  renderAcct(); render(); window.scrollTo(0,0);
+}
+function closeSettings(){
+  S.settingsOpen=false;
+  $("#tab-settings").hidden=true; document.querySelector(".tabs").hidden=false;
+  $("#settingsBtn").setAttribute("aria-expanded","false"); $("#settingsBtn").hidden=false;
+  ["meny","handle","retter"].forEach(t=>$("#tab-"+t).hidden = t!==S.tab);
+  $("#monthbar").hidden = S.tab==="retter";
+  window.scrollTo(0,0); if(S.tab==="meny") S.scrollToday=true;
+  render(true);
+}
+$("#settingsBtn").addEventListener("click",openSettings);
+$("#settingsBack").addEventListener("click",closeSettings);
 function shiftMonth(n){
-  let [y,m]=ymParts(); m+=n; if(m<1){m=12;y--} if(m>12){m=1;y++}
-  S.month=y+"-"+String(m).padStart(2,"0"); S.week="all"; S.plan={days:{}}; S.loaded.p=false; S.genOpen=false; S.undo=null;
-  subPlan(); render(true);
+  if(periodLen()){ S.start=addDays(S.start||defaultStart(), n*periodLen()); }
+  else { let [y,m]=ymParts(); m+=n; if(m<1){m=12;y--} if(m>12){m=1;y++} S.month=y+"-"+String(m).padStart(2,"0"); }
+  S.week="all"; S.genOpen=false; S.undo=null;
+  subPlans(); render(true);
 }
 $("#prevM").onclick=()=>shiftMonth(-1);
 $("#nextM").onclick=()=>shiftMonth(1);
@@ -803,8 +983,11 @@ $("#defP").addEventListener("change",e=>{ const v=Math.max(1,Math.min(50,parseIn
 /* ---------- render ---------- */
 let daysPending=false;
 function render(force){
-  const [y,m]=ymParts();
-  $("#mLabel").textContent = MONTHS[m-1]+" "+y;
+  const lbl=$("#mLabel"); lbl.textContent=periodLabel(); lbl.style.textTransform="none";
+  const ms=$("#mSub");
+  if(periodLen()){ const sd=shopDateOf(periodDays()[0]); ms.textContent="Handles "+DOWFULL[dowIdx(sd)]+" "+shortDate(sd); ms.hidden=false; } else ms.hidden=true;
+  $("#prevM").setAttribute("aria-label", periodLen()?"Forrige periode":"Forrige måned");
+  $("#nextM").setAttribute("aria-label", periodLen()?"Neste periode":"Neste måned");
   if(document.activeElement!==$("#defP")) $("#defP").value=S.defP;
   if(S.tab==="meny"){
     if(!force && $("#days").contains(document.activeElement)) daysPending=true; else renderDays();
@@ -821,68 +1004,77 @@ function allIngNames(){
   for(const i of S.ingr.values()) if(i.name && !seen.has(norm(i.name))) seen.set(norm(i.name),i.name);
   return [...seen.values()].sort((a,b)=>a.localeCompare(b,"nb"));
 }
-function usageCount(id){ return Object.values(S.plan.days).filter(e=>e&&e.recipeId===id).length; }
+function usageCount(id){ return periodDays().filter(d=>{ const e=entryOf(d); return e&&e.recipeId===id; }).length; }
+function modeName(){ return S.set.shopMode==="week"?"hver uke":S.set.shopMode==="biweek"?"annenhver uke":"en gang i måneden"; }
 
 function renderStats(){
-  const n=daysIn(); const entries=Object.entries(S.plan.days).filter(([d,e])=>e&&e.recipeId&&+d<=n);
+  const days=periodDays(), entries=days.map(entryOf).filter(e=>e&&e.recipeId);
   const missing=new Set();
-  for(const [,e] of entries){ const r=S.recipes.get(e.recipeId); if(r && !hasIngr(r) && !r.leftover) missing.add(r.name); }
-  let h=`<span><b>${entries.length}</b> av ${n} dager planlagt</span>`;
+  for(const e of entries){ const r=S.recipes.get(e.recipeId); if(r && !hasIngr(r) && !r.leftover) missing.add(r.name); }
+  let h=`<span><b>${entries.length}</b> av ${days.length} dager planlagt</span>`;
   if(missing.size) h+=`<span class="warn">${missing.size} ${missing.size===1?"rett mangler":"retter mangler"} ingredienser</span>`;
   if(!S.canWrite) h+=`<span>Du har lesetilgang</span>`;
-  if(S.undo && S.undo.month===S.month) h+=`<button class="linkbtn" data-act="undo">Angre automatisk plan</button>`;
+  if(S.undo && S.undo.pk===periodKey()) h+=`<button class="linkbtn" data-act="undo">Angre automatisk plan</button>`;
   $("#mStats").innerHTML=h;
   $("#genBtn").disabled=!S.canWrite;
 }
+function plansLoaded(){ return periodYMs().every(ym=>S.loadedYM.has(ym)); }
 
 function renderDays(){
   daysPending=false;
-  if(!S.loaded.p || !S.loaded.r){ $("#days").innerHTML=`<li class="notice">Laster menyen …</li>`; return; }
-  const [y,m]=ymParts(); const n=daysIn(); let h="";
-  for(let d=1; d<=n; d++){
-    const date=new Date(y,m-1,d), dow=(date.getDay()+6)%7;
-    if(d===1||dow===0) h+=`<li class="weeksep">Uke ${isoWeek(date)}</li>`;
-    const e=S.plan.days[d]||{}; const r=e.recipeId?S.recipes.get(e.recipeId):null;
+  if(!plansLoaded() || !S.loaded.r){ $("#days").innerHTML=`<li class="notice">Laster menyen …</li>`; return; }
+  const days=periodDays(), len=periodLen(); let h="";
+  days.forEach((date,i)=>{
+    const d=date.getDate(), dow=dowIdx(date), k=fmtKey(date);
+    if(!len){ if(d===1||dow===0) h+=`<li class="weeksep">Uke ${isoWeek(date)}</li>`; }
+    else if(len===14 && i%7===0) h+=`<li class="weeksep">${i?"Uke 2":"Uke 1"}</li>`;
+    const e=entryOf(date)||{}; const r=e.recipeId?S.recipes.get(e.recipeId):null;
     const name = r ? r.name : (e.recipeId ? (e.label||"Slettet rett") : "");
-    const isToday = date.toDateString()===today.toDateString();
+    const isToday = +date===+TODAY;
     const dis = S.canWrite?"":"disabled";
-    h+=`<li class="day${dow>=5?" we":""}${isToday?" today":""}" data-day="${d}">
+    h+=`<li class="day${dow>=5?" we":""}${isToday?" today":""}" data-day="${k}">
       <div class="dlabel"><span class="dow">${DOW[dow]}</span><span class="dnum">${d}</span></div>
       <div class="pick">
-        <input class="dish" id="dish-${d}" value="${esc(name)}" placeholder="Velg rett …" autocomplete="off" role="combobox" aria-expanded="false" aria-label="Middag ${d}." ${dis}>
+        <input class="dish" id="dish-${d}" value="${esc(name)}" placeholder="Velg rett …" autocomplete="off" role="combobox" aria-expanded="false" aria-label="Middag ${DOWFULL[dow]} ${shortDate(date)}" ${dis}>
         ${name&&S.canWrite?`<button class="clr" aria-label="Fjern rett">×</button>`:""}
         <ul class="opts" role="listbox" hidden></ul>
       </div>
-      <label class="pp"><input class="pers${e.persons?" custom":""}" id="pers-${d}" type="number" min="1" max="50" value="${e.persons||""}" placeholder="${S.defP}" aria-label="Personer ${d}." ${dis}><span>pers</span></label>
+      <label class="pp"><input class="pers${e.persons?" custom":""}" id="pers-${d}" type="number" min="1" max="50" value="${e.persons||""}" placeholder="${S.defP}" aria-label="Personer ${DOWFULL[dow]} ${shortDate(date)}" ${dis}><span>pers</span></label>
     </li>`;
-  }
+  });
   $("#days").innerHTML=h;
+  if(S.scrollToday && !S.settingsOpen && !$("#tab-meny").hidden){
+    const days2=periodDays(), ti=days2.findIndex(d=>+d===+TODAY);
+    if(ti>=0){ S.scrollToday=false; if(ti>0){ const li=$("#days .day.today"); if(li) requestAnimationFrame(()=>li.scrollIntoView({block:"start"})); } }
+    else S.scrollToday=false;
+  }
 }
 
 /* ---------- automatic plan ---------- */
 function blockedOn(r,dow){ return (dow===4&&!!r.notFri)||(dow===5&&!!r.notSat)||(dow===6&&!!r.notSun); }
-function dowOf(d){ const [y,m]=ymParts(); return (new Date(y,m-1,d).getDay()+6)%7; }
-function genStart(){ const [y,m]=ymParts(); return (y===today.getFullYear()&&m===today.getMonth()+1)?today.getDate():1; }
-function isPast(){ const [y,m]=ymParts(); return y<today.getFullYear()||(y===today.getFullYear()&&m<today.getMonth()+1); }
-function emptyDays(){ let c=0; for(let d=genStart(); d<=daysIn(); d++) if(!(S.plan.days[d]&&S.plan.days[d].recipeId)) c++; return c; }
+function genFrom(){ const days=periodDays(); const i=days.findIndex(d=>+d>=+TODAY); return i<0?days.length:i; }
+function isPast(){ return genFrom()>=periodDays().length; }
+function emptyDays(){ const days=periodDays(); let c=0; for(let i=genFrom(); i<days.length; i++){ const e=entryOf(days[i]); if(!(e&&e.recipeId)) c++; } return c; }
 function generatePlan(mode, rand=Math.random){
-  const n=daysIn(), start=genStart();
-  const prev=JSON.parse(JSON.stringify(S.plan.days)), days=JSON.parse(JSON.stringify(S.plan.days));
+  const days=periodDays(), from=genFrom(), yms=periodYMs();
+  const prev={}; yms.forEach(ym=>{ prev[ym]=JSON.parse(JSON.stringify((S.plans[ym]&&S.plans[ym].days)||{})); });
   const all=recipeList(), pool=all.filter(r=>!r.leftover), rests=all.filter(r=>r.leftover);
   if(!pool.length){ toast("Legg inn noen retter først"); return; }
-  if(mode==="all") for(let d=start; d<=n; d++){ if(days[d]){ const p=days[d].persons; delete days[d]; if(p) days[d]={persons:p}; } }
-  const set=(d,r)=>{ days[d]={...(days[d]||{}), recipeId:r.id, label:r.name}; };
-  const taken=d=>!!(days[d]&&days[d].recipeId);
+  if(mode==="all") for(let i=from; i<days.length; i++){ const e=entryOf(days[i]); if(e) setEntryOf(days[i], e.persons?{persons:e.persons}:null); }
+  const set=(d,r)=>setEntryOf(d,{...(entryOf(d)||{}), recipeId:r.id, label:r.name});
+  const taken=d=>{ const e=entryOf(d); return !!(e&&e.recipeId); };
   let filled=0, skipped=0;
-  for(let d=start; d<=n; d++){
-    if(taken(d)) continue;
-    const dow=dowOf(d), we=dow>=4, cands=[], backup=[];
+  for(let i=from; i<days.length; i++){
+    const day=days[i];
+    if(taken(day)) continue;
+    const dow=dowIdx(day), we=dow>=4, cands=[], backup=[];
     for(const r of pool){
       if(blockedOn(r,dow)) continue;
       let w=1;
       if(r.weekend) w*= we?6:0.25;
       let near=99, cnt=0;
-      for(let k=1; k<=n; k++){ if(k!==d && days[k] && days[k].recipeId===r.id){ cnt++; near=Math.min(near,Math.abs(k-d)); } }
+      for(const o of days){ if(+o!==+day){ const e=entryOf(o); if(e&&e.recipeId===r.id) cnt++; } }
+      for(let k=-10; k<=10; k++){ if(!k) continue; const e=entryOf(addDays(day,k)); if(e&&e.recipeId===r.id) near=Math.min(near,Math.abs(k)); }
       if(near<=4) w*=0.05; else if(near<=7) w*=0.3;
       w/=(1+cnt*1.5);
       (near<=1?backup:cands).push([r,w]);
@@ -891,12 +1083,12 @@ function generatePlan(mode, rand=Math.random){
     if(!cands.length){ skipped++; continue; }
     let x=rand()*cands.reduce((a,c)=>a+c[1],0), pick=cands[cands.length-1][0];
     for(const [r,w] of cands){ x-=w; if(x<=0){ pick=r; break; } }
-    set(d,pick); filled++;
+    set(day,pick); filled++;
     const rest=rests.find(l=>norm(l.name)!==norm(pick.name) && norm(l.name).startsWith(norm(pick.name)));
-    if(rest && d+1<=n && !taken(d+1) && !blockedOn(rest,dowOf(d+1))){ set(d+1,rest); filled++; }
+    if(rest && i+1<days.length && !taken(days[i+1]) && !blockedOn(rest,dowIdx(days[i+1]))){ set(days[i+1],rest); filled++; }
   }
-  S.undo={month:S.month, days:prev};
-  S.plan.days=days; savePlan(); S.genOpen=false;
+  S.undo={pk:periodKey(), plans:prev};
+  saveDates(days); S.genOpen=false;
   renderGen(); renderDays(); renderStats();
   toast(filled ? `${filled} ${filled===1?"middag":"middager"} lagt inn${skipped?`, ${skipped} dager uten passende rett`:""}` : "Ingen tomme dager å fylle");
   return {filled,skipped};
@@ -904,15 +1096,16 @@ function generatePlan(mode, rand=Math.random){
 function renderGen(){
   const el=$("#genPanel"); el.hidden=!S.genOpen; $("#genBtn").textContent=S.genOpen?"Lukk":"Lag middagsplan";
   if(!S.genOpen) return;
-  const [y,m]=ymParts(), start=genStart(), empty=emptyDays();
-  if(isPast()){ el.innerHTML=`<div class="phead"><div><strong>Måneden er over</strong><span>Bla fram til denne eller en kommende måned for å lage en plan.</span></div></div>`; return; }
-  el.innerHTML=`<div class="phead"><div><strong>Lag middagsplan for ${MONTHS[m-1]}</strong>
-      <span>${start>1?`Fyller fra i dag (${start}. ${MONTHS[m-1]}) og ut måneden.`:"Fyller hele måneden."} Retter merket «Ikke fredag/lørdag/søndag» havner aldri på de dagene, helgeretter legges helst fra fredag til søndag, og samme rett kommer ikke for tett.</span></div></div>
+  const from=genFrom(), empty=emptyDays(), w=periodWord();
+  if(isPast()){ el.innerHTML=`<div class="phead"><div><strong>${w.replace(/^./,c=>c.toUpperCase())} er over</strong><span>Bla fram til denne eller en kommende periode for å lage en plan.</span></div></div>`; return; }
+  const title = periodLen() ? `Lag middagsplan for ${periodLabel().replace(/^./,c=>c.toLowerCase())}` : `Lag middagsplan for ${MONTHS[ymParts()[1]-1]}`;
+  el.innerHTML=`<div class="phead"><div><strong>${esc(title)}</strong>
+      <span>${from>0?`Fyller fra i dag og ut ${w}.`:`Fyller hele ${w}.`} Retter merket «Ikke fredag/lørdag/søndag» havner aldri på de dagene, helgeretter legges helst fra fredag til søndag, og samme rett kommer ikke for tett.</span></div></div>
     <div class="hbtns">
       <button class="btn primary" data-g="empty" ${empty?"":"disabled"}>Fyll tomme dager (${empty})</button>
       <button class="btn" data-g="all">Lag helt ny plan</button>
     </div>
-    <p class="hint">«Lag helt ny plan» bytter ut rettene du har valgt${start>1?" fra i dag":""}. Antall personer per dag beholdes, og du kan angre etterpå.</p>`;
+    <p class="hint">«Lag helt ny plan» bytter ut rettene du har valgt${from>0?" fra i dag":""}. Antall personer per dag beholdes, og du kan angre etterpå.</p>`;
 }
 $("#genBtn").addEventListener("click",()=>{ S.genOpen=!S.genOpen; renderGen(); });
 $("#genPanel").addEventListener("click",e=>{
@@ -924,8 +1117,9 @@ $("#genPanel").addEventListener("click",e=>{
   }
 });
 $("#mStats").addEventListener("click",e=>{
-  if(!e.target.closest('[data-act="undo"]') || !S.undo || S.undo.month!==S.month) return;
-  S.plan.days=S.undo.days; S.undo=null; savePlan(); renderDays(); renderStats(); toast("Planen er satt tilbake");
+  if(!e.target.closest('[data-act="undo"]') || !S.undo || S.undo.pk!==periodKey()) return;
+  for(const [ym,days] of Object.entries(S.undo.plans)){ if(!S.plans[ym]) S.plans[ym]={days:{}}; S.plans[ym].days=days; savePlanYM(ym); }
+  S.undo=null; renderDays(); renderStats(); toast("Planen er satt tilbake");
 });
 
 /* ---------- combobox ---------- */
@@ -940,7 +1134,7 @@ function filterRecipes(q){
 }
 function hl(name,q){ q=norm(q); if(!q) return esc(name); const i=norm(name).indexOf(q); if(i<0) return esc(name); return esc(name.slice(0,i))+"<mark>"+esc(name.slice(i,i+q.length))+"</mark>"+esc(name.slice(i+q.length)); }
 function openOpts(input, q){
-  const li=input.closest(".day"), ul=li.querySelector(".opts"), day=+li.dataset.day;
+  const li=input.closest(".day"), ul=li.querySelector(".opts"), day=li.dataset.day;
   const list=filterRecipes(q);
   const items=list.map(r=>({type:"r",id:r.id,name:r.name}));
   if(norm(q) && !list.some(r=>norm(r.name)===norm(q))) items.push({type:"new",name:q.trim()});
@@ -948,10 +1142,13 @@ function openOpts(input, q){
   if(!items.length){ ul.hidden=true; input.setAttribute("aria-expanded","false"); return; }
   ul.innerHTML=items.map((it,i)=> it.type==="new"
     ? `<li class="opt new${i===0?" active":""}" role="option" data-i="${i}">+ Lag ny rett «${esc(it.name)}»</li>`
-    : (()=>{ const r=S.recipes.get(it.id)||{}, dw=dowOf(day), no=blockedOn(r,dw), c=usageCount(it.id);
-        const info = no?`<small class="no">ikke ${DOWFULL[dw]}</small>`:(r.weekend&&dw>=4?`<small>helgerett</small>`:(c?`<small>${c}× denne mnd</small>`:""));
+    : (()=>{ const r=S.recipes.get(it.id)||{}, dw=dowIdx(keyDate(day)), no=blockedOn(r,dw), c=usageCount(it.id);
+        const info = no?`<small class="no">ikke ${DOWFULL[dw]}</small>`:(r.weekend&&dw>=4?`<small>helgerett</small>`:(c?`<small>${c}× ${periodLen()?"i perioden":"denne mnd"}</small>`:""));
         return `<li class="opt${no?" blocked":""}${i===0?" active":""}" role="option" data-i="${i}"><span>${hl(it.name,q)}</span>${info}</li>`; })()).join("");
   ul.hidden=false; input.setAttribute("aria-expanded","true");
+  ul.classList.remove("up");
+  const r=input.getBoundingClientRect(), vh=(window.visualViewport?window.visualViewport.height:innerHeight);
+  if(vh-r.bottom < Math.min(320, ul.scrollHeight+20) && r.top > vh-r.bottom) ul.classList.add("up");
 }
 function closeOpts(){ if(active.ul){ active.ul.hidden=true; active.input.setAttribute("aria-expanded","false"); } active={day:null,idx:0,items:[]}; }
 function moveActive(dx){
@@ -970,9 +1167,9 @@ async function choose(i){
     write("recipes/"+id,()=>ref.set(body));
     toast(`«${name}» er lagt til. Legg inn ingredienser under Retter.`);
   }
-  const prev=S.plan.days[day]||{};
-  S.plan.days[day]={...prev, recipeId:id, label:name};
-  input.value=name; savePlan(); input.blur();
+  const date=keyDate(day), prev=entryOf(date)||{};
+  setEntryOf(date,{...prev, recipeId:id, label:name});
+  input.value=name; savePlanYM(ymOf(date)); input.blur();
 }
 daysEl.addEventListener("focusin",e=>{ if(e.target.classList.contains("dish")){ e.target.select(); openOpts(e.target,""); } });
 daysEl.addEventListener("input",e=>{ if(e.target.classList.contains("dish")) openOpts(e.target,e.target.value); });
@@ -986,7 +1183,7 @@ daysEl.addEventListener("keydown",e=>{
 daysEl.addEventListener("mousedown",e=>{ const o=e.target.closest(".opt"); if(o){ e.preventDefault(); choose(+o.dataset.i); } });
 daysEl.addEventListener("focusout",e=>{
   if(e.target.classList.contains("dish")){
-    const day=+e.target.closest(".day").dataset.day; const en=S.plan.days[day]; const r=en&&S.recipes.get(en.recipeId);
+    const en=entryOf(keyDate(e.target.closest(".day").dataset.day)); const r=en&&S.recipes.get(en.recipeId);
     e.target.value = r ? r.name : (en&&en.recipeId ? en.label||"" : "");
     closeOpts();
   }
@@ -994,35 +1191,39 @@ daysEl.addEventListener("focusout",e=>{
 });
 daysEl.addEventListener("click",e=>{
   if(e.target.classList.contains("clr")){
-    const day=+e.target.closest(".day").dataset.day; const en=S.plan.days[day]||{};
-    delete S.plan.days[day]; if(en.persons) S.plan.days[day]={persons:en.persons};
-    savePlan(); renderDays(); renderStats();
+    const date=keyDate(e.target.closest(".day").dataset.day); const en=entryOf(date)||{};
+    setEntryOf(date, en.persons?{persons:en.persons}:null);
+    savePlanYM(ymOf(date)); renderDays(); renderStats();
   }
 });
 daysEl.addEventListener("change",e=>{
   if(!e.target.classList.contains("pers")) return;
-  const day=+e.target.closest(".day").dataset.day; let v=parseInt(e.target.value);
-  const en={...(S.plan.days[day]||{})};
+  const date=keyDate(e.target.closest(".day").dataset.day); let v=parseInt(e.target.value);
+  const en={...(entryOf(date)||{})};
   if(!v || v===S.defP) delete en.persons; else en.persons=Math.min(50,Math.max(1,v));
-  if(Object.keys(en).length) S.plan.days[day]=en; else delete S.plan.days[day];
+  setEntryOf(date,en);
   e.target.value=en.persons||""; e.target.classList.toggle("custom",!!en.persons);
-  savePlan();
+  savePlanYM(ymOf(date));
 });
 
 /* ---------- shopping list ---------- */
-function weeksOfMonth(){
-  const [y,m]=ymParts(); const out=[]; let cur=null;
-  for(let d=1; d<=daysIn(); d++){ const w=isoWeek(new Date(y,m-1,d)); if(!cur||cur.w!==w){ cur={w,days:[]}; out.push(cur);} cur.days.push(d); }
+// Delperioder for valgknappene over handlelista
+function subWeeks(){
+  const days=periodDays(), len=periodLen();
+  if(len===7) return [];
+  if(len===14) return [{id:"1",label:"Uke 1",days:days.slice(0,7)},{id:"2",label:"Uke 2",days:days.slice(7)}];
+  const out=[]; let cur=null;
+  for(const d of days){ const w=isoWeek(d); if(!cur||cur.id!==String(w)){ cur={id:String(w),label:"Uke "+w,days:[]}; out.push(cur);} cur.days.push(d); }
   return out;
 }
 function selectedDays(){
-  if(S.week==="all") return Array.from({length:daysIn()},(_,i)=>i+1);
-  const w=weeksOfMonth().find(x=>String(x.w)===S.week); return w?w.days:[];
+  if(S.week==="all") return periodDays();
+  const w=subWeeks().find(x=>x.id===S.week); return w?w.days:periodDays();
 }
 function buildList(){
   const map=new Map(), missing=new Map(); let dinners=0;
   for(const d of selectedDays()){
-    const e=S.plan.days[d]; if(!e||!e.recipeId) continue; const r=S.recipes.get(e.recipeId); if(!r) continue;
+    const e=entryOf(d); if(!e||!e.recipeId) continue; const r=S.recipes.get(e.recipeId); if(!r) continue;
     dinners++;
     if(!hasIngr(r)){ if(!r.leftover) missing.set(r.id,r.name); continue; }
     const f=(e.persons||S.defP)/(r.servings||S.defP);
@@ -1046,19 +1247,22 @@ function buildList(){
   const toBuy=items.filter(i=>i.need>0.001), home=items.filter(i=>i.need<=0.001);
   return {items,toBuy,home,missing,dinners};
 }
-const checkKey=()=>"mp-check-"+S.month+"-"+S.week;
+const checkKey=()=>"mp-check-"+periodKey()+"-"+S.week;
 function getChecked(){ try{ return new Set(JSON.parse(localStorage.getItem(checkKey())||"[]")); }catch{ return new Set(); } }
 function setChecked(s){ try{ localStorage.setItem(checkKey(),JSON.stringify([...s])); }catch{} }
 
 function renderList(){
-  const wk=weeksOfMonth();
-  $("#weeks").innerHTML=`<button class="chip" data-w="all" aria-pressed="${S.week==="all"}">Hele måneden</button>`+
-    wk.map(w=>`<button class="chip" data-w="${w.w}" aria-pressed="${S.week===String(w.w)}">Uke ${w.w}</button>`).join("");
+  const wk=subWeeks(), w=periodWord();
+  $("#weeks").innerHTML = wk.length ? `<button class="chip" data-w="all" aria-pressed="${S.week==="all"}">Hele ${w}</button>`+
+    wk.map(x=>`<button class="chip" data-w="${x.id}" aria-pressed="${S.week===x.id}">${x.label}</button>`).join("") : "";
+  $("#weeks").hidden=!wk.length;
   const {items,toBuy,home,missing,dinners}=buildList(); const checked=getChecked();
-  const [y,m]=ymParts();
-  let h=`<div class="rhead"><strong>Handleliste</strong><span>${S.week==="all"?MONTHS[m-1]+" "+y:"Uke "+S.week+" · "+MONTHS[m-1]} · ${dinners} ${dinners===1?"middag":"middager"}</span></div>`;
+  const sub=wk.find(x=>x.id===S.week);
+  const when = periodLen() ? periodLabel()+(sub?" · "+sub.label:"") : (sub? sub.label+" · "+MONTHS[ymParts()[1]-1] : periodLabel().toLowerCase());
+  const shopLine = periodLen() ? `<span>Handles ${DOW[dowIdx(shopDateOf(periodDays()[0]))]} ${shortDate(shopDateOf(periodDays()[0]))}</span>` : "";
+  let h=`<div class="rhead"><strong>Handleliste</strong><span>${esc(when)} · ${dinners} ${dinners===1?"middag":"middager"}</span>${shopLine?"<br>"+shopLine:""}</div>`;
   if(!items.length && !missing.size){
-    h+=`<p class="notice" style="border:0">Ingen middager planlagt ${S.week==="all"?"denne måneden":"denne uka"} ennå. Velg retter under Meny, så dukker varene opp her.</p>`;
+    h+=`<p class="notice" style="border:0">Ingen middager planlagt ${sub?"denne uka":"for "+w} ennå. Velg retter under Meny, så dukker varene opp her.</p>`;
   }
   if(items.length && !toBuy.length) h+=`<p class="notice" style="border:0">Dere har alt dere trenger hjemme.</p>`;
   for(const it of toBuy){
@@ -1297,16 +1501,18 @@ function saveRecipe(){
 }
 
 /* ---------- data ---------- */
-let unsubPlan=null;
-function subPlan(){
-  if(!S.db) return; if(unsubPlan) unsubPlan();
-  const m=S.month;
-  unsubPlan=S.db.doc("plans/"+m).onSnapshot(d=>{
-    if(m!==S.month) return;
-    S.plan = d.exists ? JSON.parse(JSON.stringify(d.data())) : {days:{}};
-    if(!S.plan.days) S.plan.days={};
-    S.loaded.p=true; render();
-  }, e=>console.error(e));
+const planSubs=new Map();
+function subPlans(){
+  if(!S.db) return;
+  const want=new Set(periodYMs());
+  for(const [ym,un] of planSubs) if(!want.has(ym)){ un(); planSubs.delete(ym); S.loadedYM.delete(ym); }
+  for(const ym of want) if(!planSubs.has(ym)){
+    planSubs.set(ym, S.db.doc("plans/"+ym).onSnapshot(d=>{
+      S.plans[ym] = d.exists ? JSON.parse(JSON.stringify(d.data())) : {days:{}};
+      if(!S.plans[ym].days) S.plans[ym].days={};
+      S.loadedYM.add(ym); render();
+    }, e=>console.error(e)));
+  }
 }
 function attachData(db){
   db.collection("recipes").onSnapshot(s=>{
@@ -1317,14 +1523,18 @@ function attachData(db){
     S.ingr=new Map(s.docs.map(d=>[d.id,d.data()])); if(S.tab==="handle"&&!S.packEdit) renderList(); else render();
   }, e=>console.error(e));
   db.doc("settings/main").onSnapshot(d=>{
-    const v=d.exists&&d.data().defaultPersons; if(v){ S.defP=v; render(); }
+    const v=d.exists?d.data():{};
+    if(v.defaultPersons) S.defP=v.defaultPersons;
+    const next={shopMode:["week","biweek","month"].includes(v.shopMode)?v.shopMode:"month",
+      shopDay:Number.isInteger(v.shopDay)?v.shopDay:4, startOffset:v.startOffset?1:0, biweekRef:v.biweekRef||null};
+    if(JSON.stringify(next)!==JSON.stringify(S.set)){ S.set=next; resetView(); renderAcct(); render(true); } else render();
   }, e=>console.error(e));
   db.doc("pantry/current").onSnapshot(d=>{
     const v=d.exists?d.data():null;
     S.pantry=v&&v.items?JSON.parse(JSON.stringify(v.items)):{}; S.pantryAt=v?v.updatedAt:null;
     if(S.tab==="handle"){ if(!S.packEdit) renderList(); renderPantry(); }
   }, e=>console.error(e));
-  subPlan();
+  subPlans();
 }
 
 /* ---------- Supabase-lagring ----------
@@ -1466,8 +1676,28 @@ function renderAuth(){
       </div>
       <div class="alinks"><span class="hint">Innlogget som ${esc(S.user?S.user.email:"")}</span><button class="linkbtn muted" data-a="logout">Logg ut</button></div>`;
   }
+  if(A.mode==="onboard"){
+    const o=A.ob, dis=A.busy?"disabled":"";
+    if(o.step===1) h=`<p class="obstep">Steg 1 av ${o.shopMode==="month"?2:3}</p><h2>Hvordan handler dere?</h2><p class="hint">Menyen og handlelista deles opp etter det. Dere kan bytte senere.</p>${err}
+      <div class="oblist">
+        <button class="obopt" data-ob="mode" data-v="week"><strong>Hver uke</strong><span>Planlegg én uke om gangen, fra handledag til handledag.</span></button>
+        <button class="obopt" data-ob="mode" data-v="biweek"><strong>Annenhver uke</strong><span>Én stor handel hver 14. dag.</span></button>
+        <button class="obopt" data-ob="mode" data-v="month"><strong>En gang i måneden</strong><span>Planlegg hele måneden og handle alt på én gang.</span></button>
+      </div>`;
+    if(o.step===2) h=`<p class="obstep">Steg 2 av 3</p><h2>Hvilken dag handler dere?</h2>${err}
+      <div class="setopts">${DOW.map((d,i)=>`<button class="chip" data-ob="day" data-v="${i}" aria-pressed="${o.shopDay===i}">${d.replace(/^./,c=>c.toUpperCase())}</button>`).join("")}</div>
+      <h2 class="obsub">Når starter menyen?</h2>
+      <div class="setopts"><button class="chip" data-ob="offset" data-v="0" aria-pressed="${o.startOffset===0}">Samme dag som vi handler</button><button class="chip" data-ob="offset" data-v="1" aria-pressed="${o.startOffset===1}">Dagen etter</button></div>
+      <p class="hint">Med ${DOWFULL[o.shopDay]} og ${o.startOffset?"dagen etter":"samme dag"} går menyen fra ${DOWFULL[(o.shopDay+o.startOffset)%7]} til ${DOWFULL[(o.shopDay+o.startOffset+6)%7]}.</p>
+      <button class="btn primary" data-ob="next">Neste</button>
+      <div class="alinks"><button class="linkbtn muted" data-ob="back">Tilbake</button></div>`;
+    if(o.step===3) h=`<p class="obstep">Steg ${o.shopMode==="month"?2:3} av ${o.shopMode==="month"?2:3}</p><h2>Hvor mange er dere vanligvis?</h2><p class="hint">Oppskriftene skaleres til dette. Dere kan endre antall for hver dag i menyen.</p>${err}
+      <div class="stepper obstepper"><button data-ob="minus" aria-label="Færre">−</button><input type="number" value="${o.persons}" readonly aria-label="Antall personer"><button data-ob="plus" aria-label="Flere">+</button></div>
+      <button class="btn primary" data-ob="finish" ${dis}>${A.busy?"Vent litt …":"Kom i gang"}</button>
+      <div class="alinks"><button class="linkbtn muted" data-ob="back">Tilbake</button></div>`;
+  }
   el.innerHTML=h;
-  const f=el.querySelector("input:not([type=checkbox])"); if(f && A.mode!=="household") f.focus();
+  const f=el.querySelector("input:not([type=checkbox])"); if(f && A.mode!=="household" && A.mode!=="onboard") f.focus();
 }
 async function busy(fn){
   if(A.busy) return; A.busy=true; A.err="";
@@ -1514,7 +1744,7 @@ $("#authStep").addEventListener("submit",e=>{
   }); }
 });
 $("#authStep").addEventListener("click",e=>{
-  const b=e.target.closest("[data-a]"); if(!b) return; const a=b.dataset.a;
+  const b=e.target.closest("[data-a]"); const a=b?b.dataset.a:"";
   if(["login","signup","forgot"].includes(a)){ A.mode=a; A.err=""; A.msg=""; renderAuth(); }
   if(a==="logout") logout();
   if(a==="create"){ const doImport=!!$("#aImport")?.checked; busy(async()=>{
@@ -1526,8 +1756,28 @@ $("#authStep").addEventListener("click",e=>{
       const rows=Object.entries(start).map(([path,data])=>({household_id:h.id, path, data}));
       for(let i=0;i<rows.length;i+=500){ const {error:e2}=await sb.from("docs").upsert(rows.slice(i,i+500)); if(e2) throw e2; }
     }
-    await openHousehold(h);
+    A.h=h; A.ob={step:1, shopMode:null, shopDay:4, startOffset:0, persons:2};
+    try{ const {data:st}=await sb.from("docs").select("path,data").eq("household_id",h.id).eq("path","settings/main").limit(1); if(st&&st[0]&&st[0].data.defaultPersons) A.ob.persons=st[0].data.defaultPersons; }catch(e){}
+    A.mode="onboard";
   }); }
+  const ob=e.target.closest("[data-ob]"); if(ob && A.mode==="onboard"){
+    const k=ob.dataset.ob, v=ob.dataset.v, o=A.ob;
+    if(k==="mode"){ o.shopMode=v; o.step=v==="month"?3:2; }
+    if(k==="day") o.shopDay=+v;
+    if(k==="offset") o.startOffset=+v;
+    if(k==="next") o.step=3;
+    if(k==="back") o.step = o.step===3 && o.shopMode!=="month" ? 2 : 1;
+    if(k==="minus") o.persons=Math.max(1,o.persons-1);
+    if(k==="plus") o.persons=Math.min(50,o.persons+1);
+    if(k==="finish"){ busy(async()=>{
+      const S2={shopMode:o.shopMode||"month", shopDay:o.shopDay, startOffset:o.startOffset, biweekRef:null};
+      if(S2.shopMode==="biweek"){ S.set={...S2}; S2.biweekRef=fmtKey(nextPeriodStart()); }
+      const {error}=await sb.from("docs").upsert({household_id:A.h.id, path:"settings/main", data:{defaultPersons:o.persons, ...S2}});
+      if(error) throw error;
+      await openHousehold(A.h);
+    }); return; }
+    renderAuth();
+  }
 });
 async function enter(session){
   if(entered||!session) return;
@@ -1545,15 +1795,36 @@ async function openHousehold(h){
   S.db=await makeDb(sb,h.id);
   showApp(true);
   try{ const t=localStorage.getItem("mp-tab"); if(t&&t!=="meny") document.querySelector(`.tabs [data-tab="${t}"]`)?.click(); }catch{}
-  render(true); attachData(S.db); renderAcct();
+  S.scrollToday=true; render(true); attachData(S.db); renderAcct();
+}
+function settingsHtml(){
+  const m=S.set.shopMode, dis=S.canWrite?"":"disabled";
+  const opt=(k,v,label)=>`<button class="chip" data-set="${k}" data-v="${v}" aria-pressed="${String(S.set[k])===String(v)}" ${dis}>${label}</button>`;
+  return `<section class="scard" id="settings">
+    <strong class="sethead">Handlevaner</strong>
+    <div class="setrow"><span class="setlabel">Vi handler</span><div class="setopts">${opt("shopMode","week","Hver uke")}${opt("shopMode","biweek","Annenhver uke")}${opt("shopMode","month","Hver måned")}</div></div>
+    ${m!=="month"?`<div class="setrow"><span class="setlabel">Handledag</span><div class="setopts">${DOW.map((d,i)=>opt("shopDay",i,d.replace(/^./,c=>c.toUpperCase()))).join("")}</div></div>
+    <div class="setrow"><span class="setlabel">Menyen starter</span><div class="setopts">${opt("startOffset",0,"Samme dag")}${opt("startOffset",1,"Dagen etter")}</div></div>`:""}
+    <p class="hint">Gjelder alle i husstanden. Å bytte sletter ingenting, det endrer bare hvordan menyen og handlelista deles opp.</p>
+  </section>`;
 }
 function renderAcct(){
-  $("#acct").innerHTML=`<div><span>Innlogget som <b>${esc(S.user.email)}</b></span>
-    <span>Husstandskode: <b class="code">${esc(S.household.join_code)}</b> <button class="linkbtn" data-a="copycode">Kopier</button></span></div>
-    <p>Gi koden til den du vil dele planen med. Hun eller han lager egen bruker og velger «Bli med i en husstand».</p>
-    <div><button class="linkbtn muted" data-a="logout">Logg ut</button></div>`;
+  if(!S.user||!S.household) return;
+  $("#acct").innerHTML=settingsHtml()+`
+    <section class="scard">
+      <strong class="sethead">Husstand</strong>
+      <div class="srow"><span class="setlabel">Husstandskode</span><span class="srow-val"><b class="code">${esc(S.household.join_code)}</b><button class="linkbtn" data-a="copycode">Kopier</button></span></div>
+      <p class="hint">Gi koden til den du vil dele planen med. Hun eller han lager egen bruker og velger «Bli med i en husstand».</p>
+    </section>
+    <section class="scard">
+      <strong class="sethead">Konto</strong>
+      <div class="srow"><span class="setlabel">Innlogget som</span><b class="srow-mail">${esc(S.user.email)}</b></div>
+      <button class="btn danger" data-a="logout">Logg ut</button>
+    </section>`;
 }
 $("#acct").addEventListener("click",e=>{
+  const sbtn=e.target.closest("[data-set]");
+  if(sbtn){ const k=sbtn.dataset.set, v=k==="shopMode"?sbtn.dataset.v:+sbtn.dataset.v; if(String(S.set[k])!==String(v)){ saveSettings({[k]:v}); toast(k==="shopMode"?"Handler nå "+modeName():"Lagret"); } return; }
   const b=e.target.closest("[data-a]"); if(!b) return;
   if(b.dataset.a==="logout") logout();
   if(b.dataset.a==="copycode"){ const c=S.household.join_code; try{ navigator.clipboard.writeText(c).then(()=>toast("Koden er kopiert"),()=>toast("Koden er "+c)); }catch{ toast("Koden er "+c); } }
