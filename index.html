@@ -833,6 +833,9 @@ body[data-view="settings"]::before{
 .dchip[aria-pressed="true"]{background:var(--mustard-soft);color:var(--accent);box-shadow:inset 0 0 0 1.5px var(--accent)}
 .dchip:active{transform:scale(.94)}
 .daysel .check{flex:none!important;margin:0!important}
+
+.daysel{padding:18px 16px 16px!important;margin:0}
+.dayshead{font:600 17px/1.3 var(--f-display);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -1607,7 +1610,7 @@ function openEditor(id){
       <label class="field">Mengdene er for<span class="stepper" style="margin-top:0"><button type="button" data-act="sminus" aria-label="Færre">−</button><input id="eServ" type="number" min="1" max="50" value="${r?r.servings||S.defP:S.defP}" ${ro}><button type="button" data-act="splus" aria-label="Flere">+</button></span></label>
       <span style="padding-bottom:8px;color:var(--muted);font-size:14px">personer</span>
     </div>
-    <fieldset class="rules daysel" id="eDays"><legend>Når passer retten?</legend>
+    <div class="rules daysel" id="eDays" role="group" aria-labelledby="eDaysH"><strong class="dayshead" id="eDaysH">Når passer retten?</strong>
       <div class="dpresets">
         <button type="button" class="chip" data-preset="all" ${ro}>Alle dager</button>
         <button type="button" class="chip" data-preset="weekdays" ${ro}>Hverdager</button>
@@ -1616,7 +1619,7 @@ function openEditor(id){
       <span class="setlabel">Kan brukes på</span>
       <div class="dchips">${DOW.map((d,i)=>`<button type="button" class="dchip" data-dow="${i}" aria-pressed="${recipeDays(r||{}).includes(i)}" aria-label="${DOWFULL[i]}" ${ro}>${d.replace(/^./,c=>c.toUpperCase())}</button>`).join("")}</div>
       <label class="check"><input type="checkbox" id="eWeekend" ${r&&r.weekend?"checked":""} ${ro}> Legg den helst i helgen</label>
-    </fieldset>
+    </div>
     <label class="check"><input type="checkbox" id="eLeft" ${r&&r.leftover?"checked":""} ${ro}> Rester eller noe som ikke krever innkjøp <small style="color:var(--muted)">(kommer ikke med i automatisk plan)</small></label>
     <div>
       <div class="inghead"><span>Ingrediens</span><span style="text-align:right">Mengde</span><span>Enhet</span><span></span></div>
