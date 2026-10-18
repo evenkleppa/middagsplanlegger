@@ -839,6 +839,13 @@ body[data-view="settings"]::before{
 
 /* Ekstra plass nederst mens man velger rett, så også siste dag kan flyttes opp */
 @media (max-width:719px){ body.picking{padding-bottom:calc(100vh + 40px)} }
+
+/* Fredagssteget og lærte mønstre */
+.obfri .obopt{min-height:56px;padding:14px 22px;justify-content:center}
+.obfri .obopt[aria-pressed="true"]{background:var(--mustard-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.learned{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.learned li{padding:10px 14px;border-radius:var(--pill);background:var(--surface);box-shadow:var(--shadow-sm)}
+.learned small{color:var(--muted)}
 </style>
 </head>
 <body>
@@ -963,6 +970,7 @@ const S = {
   recipes:new Map(), ingr:new Map(), defP:2,
   plans:{}, loadedYM:new Set(), start:null,
   set:{shopMode:"month", shopDay:4, startOffset:0, biweekRef:null},
+  prefs:{fridayFav:"none", learn:true, learnResetAt:0},
   month: today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0"),
   tab:"meny", week:"all", pantry:{}, pantryAt:null, pantryOpen:false, genOpen:false, undo:null, loaded:{r:false}, editing:null, packEdit:null
 };
@@ -1057,7 +1065,11 @@ function savePlanYM(ym){
   write("plans/"+ym, () => S.db.doc("plans/"+ym).set(body));
 }
 function saveDates(dates){ new Set(dates.map(ymOf)).forEach(savePlanYM); }
-function settingsBody(){ return {defaultPersons:S.defP, shopMode:S.set.shopMode, shopDay:S.set.shopDay, startOffset:S.set.startOffset, biweekRef:S.set.biweekRef, biweekV:2}; }
+function settingsBody(){ return {defaultPersons:S.defP, shopMode:S.set.shopMode, shopDay:S.set.shopDay, startOffset:S.set.startOffset, biweekRef:S.set.biweekRef, biweekV:2, fridayFav:S.prefs.fridayFav, learn:S.prefs.learn, learnResetAt:S.prefs.learnResetAt}; }
+function savePrefs(patch){
+  S.prefs={...S.prefs,...patch}; renderAcct();
+  write("settings/main",()=>S.db.doc("settings/main").set(settingsBody()));
+}
 function saveSettings(patch){
   const before=JSON.stringify(S.set);
   S.set={...S.set,...patch};
@@ -1189,8 +1201,22 @@ function renderDays(){
   $("#days").innerHTML=h;
   if(S.scrollToday && !S.settingsOpen && !$("#tab-meny").hidden){
     const days2=periodDays(), ti=days2.findIndex(d=>+d===+TODAY);
-    if(ti>=0){ S.scrollToday=false; if(ti>0){ const li=$("#days .day.today"); if(li) requestAnimationFrame(()=>li.scrollIntoView({block:"start"})); } }
-    else S.scrollToday=false;
+    if(ti<=0){ S.scrollToday=false; }
+    else {
+      // Menyen kan tegnes på nytt mens data lastes inn: prøv igjen til dagens dato faktisk står øverst
+      if(!S.scrollSince) S.scrollSince=Date.now();
+      requestAnimationFrame(()=>{
+        const li=$("#days .day.today"); if(!li) return;
+        li.scrollIntoView({block:"start"});
+        setTimeout(()=>{
+          const t=$("#days .day.today")?.getBoundingClientRect().top;
+          const done=t!=null && t>=-5 && t<=80;
+          const atBottom=window.scrollY+innerHeight>=document.documentElement.scrollHeight-2;
+          if(done||atBottom||Date.now()-S.scrollSince>3000){ S.scrollToday=false; S.scrollSince=0; }
+          else $("#days .day.today")?.scrollIntoView({block:"start"});
+        },150);
+      });
+    }
   }
 }
 
@@ -1210,6 +1236,45 @@ function daysTag(days){
   return off.length<=3 ? "Ikke "+off.map(d=>DOW[d]).join(" · ") : "Kun "+days.map(d=>DOW[d]).join(" · ");
 }
 function blockedOn(r,dow){ return !recipeDays(r).includes(dow); }
+
+/* ---------- fredagsfavoritt og læring ----------
+   Et mønster teller først når samme rett er valgt av dere selv på samme ukedag
+   minst 3 av de 5 siste ukene. Det appen selv har foreslått, teller ikke. */
+const LEARN_MIN=3, LEARN_WEEKS=5;
+function favRecipe(kind){
+  const list=recipeList();
+  if(kind==="taco") return S.recipes.get("taco")||list.find(r=>norm(r.name)==="taco")||list.find(r=>norm(r.name).includes("taco"));
+  if(kind==="pizza") return S.recipes.get("pizza")||list.find(r=>norm(r.name).includes("pizza")&&!norm(r.name).includes("frossen"))||list.find(r=>norm(r.name).includes("pizza"));
+  return null;
+}
+function learnEnd(){ return addDays(TODAY,14); }
+function learnYMs(){ const out=new Set(); for(let k=-7*LEARN_WEEKS;k<=14;k++) out.add(ymOf(addDays(TODAY,k))); return [...out]; }
+function learnedPatterns(){
+  if(S.prefs.learn===false) return {};
+  const out={}, end=learnEnd();
+  for(let w=0; w<7; w++){
+    let d=addDays(end,-((dowIdx(end)-w+7)%7)); const cnt={};
+    for(let k=0;k<LEARN_WEEKS;k++){
+      const e=entryOf(d);
+      if(e && e.src==="m" && e.recipeId && S.recipes.has(e.recipeId) && (+e.at||0)>S.prefs.learnResetAt) cnt[e.recipeId]=(cnt[e.recipeId]||0)+1;
+      d=addDays(d,-7);
+    }
+    const best=Object.entries(cnt).sort((a,b)=>b[1]-a[1])[0];
+    if(best && best[1]>=LEARN_MIN) out[w]={id:best[0], n:best[1]};
+  }
+  return out;
+}
+// Retten appen helst vil legge på en dag: lært mønster først, ellers fredagsfavoritten
+function preferredFor(day, learned){
+  const w=dowIdx(day);
+  if(learned[w]) return S.recipes.get(learned[w].id)||null;
+  if(w===4){
+    const f=S.prefs.fridayFav;
+    if(f==="taco"||f==="pizza") return favRecipe(f);
+    if(f==="both"){ const a=favRecipe(isoWeek(day)%2?"taco":"pizza"), b=favRecipe(isoWeek(day)%2?"pizza":"taco"); return a||b; }
+  }
+  return null;
+}
 function genFrom(){ const days=periodDays(); const i=days.findIndex(d=>+d>=+TODAY); return i<0?days.length:i; }
 function isPast(){ return genFrom()>=periodDays().length; }
 function emptyDays(){ const days=periodDays(); let c=0; for(let i=genFrom(); i<days.length; i++){ const e=entryOf(days[i]); if(!(e&&e.recipeId)) c++; } return c; }
@@ -1219,13 +1284,20 @@ function generatePlan(mode, rand=Math.random){
   const all=recipeList(), pool=all.filter(r=>!r.leftover), rests=all.filter(r=>r.leftover);
   if(!pool.length){ toast("Legg inn noen retter først"); return; }
   if(mode==="all") for(let i=from; i<days.length; i++){ const e=entryOf(days[i]); if(e) setEntryOf(days[i], e.persons?{persons:e.persons}:null); }
-  const set=(d,r)=>setEntryOf(d,{...(entryOf(d)||{}), recipeId:r.id, label:r.name});
+  const set=(d,r)=>setEntryOf(d,{...(entryOf(d)||{}), recipeId:r.id, label:r.name, src:"a"});
   const taken=d=>{ const e=entryOf(d); return !!(e&&e.recipeId); };
   let filled=0, skipped=0;
+  const learned=learnedPatterns();
+  const usedNear=(r,day,dist)=>{ for(let k=-dist;k<=dist;k++){ if(!k) continue; const e=entryOf(addDays(day,k)); if(e&&e.recipeId===r.id) return true; } return false; };
   for(let i=from; i<days.length; i++){
     const day=days[i];
     if(taken(day)) continue;
     const dow=dowIdx(day), we=dow>=4, cands=[], backup=[];
+    const pref=preferredFor(day,learned);
+    if(pref && !pref.leftover && !blockedOn(pref,dow) && !usedNear(pref,day,2) && rand()<0.85){
+      set(day,pref); filled++;
+      continue;
+    }
     for(const r of pool){
       if(blockedOn(r,dow)) continue;
       let w=1;
@@ -1337,7 +1409,7 @@ async function choose(i){
     toast(`«${name}» er lagt til. Legg inn ingredienser under Retter.`);
   }
   const date=keyDate(day), prev=entryOf(date)||{};
-  setEntryOf(date,{...prev, recipeId:id, label:name});
+  setEntryOf(date,{...prev, recipeId:id, label:name, src:"m", at:Date.now()});
   input.value=name; savePlanYM(ymOf(date)); input.blur();
 }
 // På mobil: flytt dagen opp nær toppen, så valglista får plass under den og over tastaturet
@@ -1716,7 +1788,7 @@ function saveRecipe(){
 const planSubs=new Map();
 function subPlans(){
   if(!S.db) return;
-  const want=new Set(periodYMs());
+  const want=new Set([...periodYMs(), ...learnYMs()]);
   for(const [ym,un] of planSubs) if(!want.has(ym)){ un(); planSubs.delete(ym); S.loadedYM.delete(ym); }
   for(const ym of want) if(!planSubs.has(ym)){
     planSubs.set(ym, S.db.doc("plans/"+ym).onSnapshot(d=>{
@@ -1737,6 +1809,8 @@ function attachData(db){
   db.doc("settings/main").onSnapshot(d=>{
     const v=d.exists?d.data():{};
     if(v.defaultPersons) S.defP=v.defaultPersons;
+    const np={fridayFav:["taco","pizza","both","none"].includes(v.fridayFav)?v.fridayFav:"none", learn:v.learn!==false, learnResetAt:+v.learnResetAt||0};
+    if(JSON.stringify(np)!==JSON.stringify(S.prefs)){ S.prefs=np; renderAcct(); }
     const next={shopMode:["week","biweek","month"].includes(v.shopMode)?v.shopMode:"month",
       shopDay:Number.isInteger(v.shopDay)?v.shopDay:4, startOffset:v.startOffset?1:0, biweekRef:v.biweekRef||null};
     if(JSON.stringify(next)!==JSON.stringify(S.set)){ S.set=next; resetView(); renderAcct(); render(true); } else render();
@@ -1894,22 +1968,31 @@ function renderAuth(){
   }
   if(A.mode==="onboard"){
     const o=A.ob, dis=A.busy?"disabled":"";
-    if(o.step===1) h=`<p class="obstep">Steg 1 av ${o.shopMode==="month"?2:3}</p><h2>Hvordan handler dere?</h2><p class="hint">Menyen og handlelista deles opp etter det. Dere kan bytte senere.</p>${err}
+    if(o.step===1) h=`<p class="obstep">Steg 1 av 4</p><h2>Hvordan handler dere?</h2><p class="hint">Menyen og handlelista deles opp etter det. Dere kan bytte senere.</p>${err}
       <div class="oblist">
         <button class="obopt" data-ob="mode" data-v="week"><strong>Hver uke</strong><span>Planlegg én uke om gangen, fra handledag til handledag.</span></button>
         <button class="obopt" data-ob="mode" data-v="biweek"><strong>Annenhver uke</strong><span>Én stor handel hver 14. dag.</span></button>
         <button class="obopt" data-ob="mode" data-v="month"><strong>En gang i måneden</strong><span>Planlegg hele måneden og handle alt på én gang.</span></button>
       </div>`;
-    if(o.step===2) h=`<p class="obstep">Steg 2 av 3</p><h2>Hvilken dag handler dere?</h2>${err}
+    if(o.step===2) h=`<p class="obstep">Steg 2 av 4</p><h2>Hvilken dag handler dere?</h2>${err}
       <div class="setopts">${DOW.map((d,i)=>`<button class="chip" data-ob="day" data-v="${i}" aria-pressed="${o.shopDay===i}">${d.replace(/^./,c=>c.toUpperCase())}</button>`).join("")}</div>
       <h2 class="obsub">Når starter menyen?</h2>
       <div class="setopts"><button class="chip" data-ob="offset" data-v="0" aria-pressed="${o.startOffset===0}">Samme dag som vi handler</button><button class="chip" data-ob="offset" data-v="1" aria-pressed="${o.startOffset===1}">Dagen etter</button></div>
       <p class="hint">Med ${DOWFULL[o.shopDay]} og ${o.startOffset?"dagen etter":"samme dag"} går menyen fra ${DOWFULL[(o.shopDay+o.startOffset)%7]} til ${DOWFULL[(o.shopDay+o.startOffset+6)%7]}.</p>
       <button class="btn primary" data-ob="next">Neste</button>
       <div class="alinks"><button class="linkbtn muted" data-ob="back">Tilbake</button></div>`;
-    if(o.step===3) h=`<p class="obstep">Steg ${o.shopMode==="month"?2:3} av ${o.shopMode==="month"?2:3}</p><h2>Hvor mange er dere vanligvis?</h2><p class="hint">Oppskriftene skaleres til dette. Dere kan endre antall for hver dag i menyen.</p>${err}
+    if(o.step===3) h=`<p class="obstep">Steg ${o.shopMode==="month"?2:3} av ${o.shopMode==="month"?3:4}</p><h2>Hvor mange er dere vanligvis?</h2><p class="hint">Oppskriftene skaleres til dette. Dere kan endre antall for hver dag i menyen.</p>${err}
       <div class="stepper obstepper"><button data-ob="minus" aria-label="Færre">−</button><input type="number" value="${o.persons}" readonly aria-label="Antall personer"><button data-ob="plus" aria-label="Flere">+</button></div>
-      <button class="btn primary" data-ob="finish" ${dis}>${A.busy?"Vent litt …":"Kom i gang"}</button>
+      <button class="btn primary" data-ob="toFri">Neste</button>
+      <div class="alinks"><button class="linkbtn muted" data-ob="back">Tilbake</button></div>`;
+    if(o.step===4) h=`<p class="obstep">Steg ${o.shopMode==="month"?3:4} av ${o.shopMode==="month"?3:4}</p><h2>Og så det viktigste av alt …</h2><p class="hint">Hva blir det på fredager?</p>${err}
+      <div class="oblist obfri">
+        <button class="obopt" data-ob="fri" data-v="taco" aria-pressed="${o.fridayFav==="taco"}"><strong>🌮 Tacofredag</strong></button>
+        <button class="obopt" data-ob="fri" data-v="pizza" aria-pressed="${o.fridayFav==="pizza"}"><strong>🍕 Fredagspizza</strong></button>
+        <button class="obopt" data-ob="fri" data-v="both" aria-pressed="${o.fridayFav==="both"}"><strong>🔁 Litt av begge</strong></button>
+        <button class="obopt" data-ob="fri" data-v="none" aria-pressed="${o.fridayFav==="none"}"><strong>🤷 Ingen fast tradisjon</strong></button>
+      </div>
+      <button class="btn primary" data-ob="finish" ${dis||!o.fridayFav?"disabled":""}>${A.busy?"Vent litt …":"Kom i gang"}</button>
       <div class="alinks"><button class="linkbtn muted" data-ob="back">Tilbake</button></div>`;
   }
   el.innerHTML=h;
@@ -1973,7 +2056,7 @@ $("#authStep").addEventListener("click",e=>{
       const rows=Object.entries(start).filter(([path])=>/^(recipes|ingredients)\//.test(path)).map(([path,data])=>({household_id:h.id, path, data}));
       for(let i=0;i<rows.length;i+=500){ const {error:e2}=await sb.from("docs").upsert(rows.slice(i,i+500)); if(e2) throw e2; }
     }
-    A.h=h; A.ob={step:1, shopMode:null, shopDay:4, startOffset:0, persons:2};
+    A.h=h; A.imported=doImport; A.ob={step:1, shopMode:null, shopDay:4, startOffset:0, persons:2, fridayFav:null};
     try{ const {data:st}=await sb.from("docs").select("path,data").eq("household_id",h.id).eq("path","settings/main").limit(1); if(st&&st[0]&&st[0].data.defaultPersons) A.ob.persons=st[0].data.defaultPersons; }catch(e){}
     A.mode="onboard";
   }); }
@@ -1983,14 +2066,25 @@ $("#authStep").addEventListener("click",e=>{
     if(k==="day") o.shopDay=+v;
     if(k==="offset") o.startOffset=+v;
     if(k==="next") o.step=3;
-    if(k==="back") o.step = o.step===3 && o.shopMode!=="month" ? 2 : 1;
+    if(k==="toFri") o.step=4;
+    if(k==="fri") o.fridayFav=v;
+    if(k==="back") o.step = o.step===4 ? 3 : (o.step===3 && o.shopMode!=="month" ? 2 : 1);
     if(k==="minus") o.persons=Math.max(1,o.persons-1);
     if(k==="plus") o.persons=Math.min(50,o.persons+1);
     if(k==="finish"){ busy(async()=>{
       const S2={shopMode:o.shopMode||"month", shopDay:o.shopDay, startOffset:o.startOffset, biweekRef:null};
       if(S2.shopMode==="biweek"){ S.set={...S2}; S2.biweekRef=fmtKey(currentWeekStart()); }
-      const {error}=await sb.from("docs").upsert({household_id:A.h.id, path:"settings/main", data:{defaultPersons:o.persons, ...S2, biweekV:2}});
+      const fav=o.fridayFav||"none";
+      const {error}=await sb.from("docs").upsert({household_id:A.h.id, path:"settings/main", data:{defaultPersons:o.persons, ...S2, biweekV:2, fridayFav:fav, learn:true, learnResetAt:0}});
       if(error) throw error;
+      // Uten startpakken: lag taco- og/eller pizza-retten, så favoritten faktisk virker
+      if(!A.imported && fav!=="none"){
+        let start={}; try{ const r=await fetch("data/startdata.json",{cache:"no-store"}); if(r.ok) start=await r.json(); }catch(e){}
+        const need=fav==="both"?["taco","pizza"]:[fav];
+        const fallback={taco:{name:"Taco",servings:4,ingredients:[],leftover:false,days:[4,5,6]},pizza:{name:"Hjemmelaget pizza",servings:4,ingredients:[],leftover:false,days:[4,5,6]}};
+        const rows=need.map(k=>({household_id:A.h.id, path:"recipes/"+k, data:start["recipes/"+k]||fallback[k]}));
+        const {error:e3}=await sb.from("docs").upsert(rows); if(e3) throw e3;
+      }
       await openHousehold(A.h);
     }); return; }
     renderAuth();
@@ -2025,9 +2119,26 @@ function settingsHtml(){
     <p class="hint">Gjelder alle i husstanden. Å bytte sletter ingenting, det endrer bare hvordan menyen og handlelista deles opp.</p>
   </section>`;
 }
+function learnHtml(){
+  const dis=S.canWrite?"":"disabled", f=S.prefs.fridayFav;
+  const fo=(v,l)=>`<button class="chip" data-pref="fridayFav" data-v="${v}" aria-pressed="${f===v}" ${dis}>${l}</button>`;
+  const pats=learnedPatterns();
+  const rows=Object.entries(pats).map(([w,p])=>{ const r=S.recipes.get(p.id); return r?`<li><b>${esc(r.name)}</b> på ${DOWFULL[w]}er <small>(valgt ${p.n} av ${LEARN_WEEKS} uker)</small></li>`:""; }).join("");
+  return `<section class="scard">
+    <strong class="sethead">Fredagsfavoritt</strong>
+    <div class="setopts">${fo("taco","Tacofredag")}${fo("pizza","Fredagspizza")}${fo("both","Litt av begge")}${fo("none","Ingen fast")}</div>
+    <p class="hint">Når appen lager meny, legger den favoritten på fredager. Dere kan alltid bytte selv.</p>
+  </section>
+  <section class="scard">
+    <strong class="sethead">Det appen har lært</strong>
+    ${S.prefs.learn===false?`<p class="hint">Læring er slått av.</p>`:rows?`<ul class="learned">${rows}</ul>`:`<p class="hint">Ingenting ennå. Velger dere samme rett på samme ukedag minst ${LEARN_MIN} av ${LEARN_WEEKS} uker, lærer appen det og foreslår den der.</p>`}
+    <label class="check"><input type="checkbox" id="learnToggle" ${S.prefs.learn!==false?"checked":""} ${dis}> Lær av valgene våre</label>
+    ${rows?`<button class="btn" data-pref="reset" ${dis}>Nullstill det appen har lært</button>`:""}
+  </section>`;
+}
 function renderAcct(){
   if(!S.user||!S.household) return;
-  $("#acct").innerHTML=settingsHtml()+`
+  $("#acct").innerHTML=settingsHtml()+learnHtml()+`
     <section class="scard">
       <strong class="sethead">Husstand</strong>
       <div class="srow"><span class="setlabel">Husstandskode</span><span class="srow-val"><b class="code">${esc(S.household.join_code)}</b><button class="linkbtn" data-a="copycode">Kopier</button></span></div>
@@ -2039,7 +2150,18 @@ function renderAcct(){
       <button class="btn danger" data-a="logout">Logg ut</button>
     </section>`;
 }
+$("#acct").addEventListener("change",e=>{ if(e.target.id==="learnToggle"){ savePrefs({learn:e.target.checked}); toast(e.target.checked?"Appen lærer av valgene deres":"Læring er slått av"); } });
 $("#acct").addEventListener("click",e=>{
+  const pb=e.target.closest("[data-pref]");
+  if(pb){
+    if(pb.dataset.pref==="fridayFav"){ const v=pb.dataset.v; if(S.prefs.fridayFav!==v){ savePrefs({fridayFav:v}); toast("Fredagsfavoritt lagret"); }
+      if((v==="taco"&&!favRecipe("taco"))||(v==="pizza"&&!favRecipe("pizza"))) toast("Fant ingen slik rett. Legg den til under Retter."); }
+    if(pb.dataset.pref==="reset"){
+      if(!pb.classList.contains("armed")){ pb.classList.add("armed","danger"); pb.textContent="Trykk igjen for å nullstille"; setTimeout(()=>{ if(pb.isConnected){ pb.classList.remove("armed","danger"); pb.textContent="Nullstill det appen har lært"; } },4000); return; }
+      savePrefs({learnResetAt:Date.now()}); toast("Det appen hadde lært, er nullstilt");
+    }
+    return;
+  }
   const sbtn=e.target.closest("[data-set]");
   if(sbtn){ const k=sbtn.dataset.set, v=k==="shopMode"?sbtn.dataset.v:+sbtn.dataset.v; if(String(S.set[k])!==String(v)){ saveSettings({[k]:v}); toast(k==="shopMode"?"Handler nå "+modeName():"Lagret"); } return; }
   const b=e.target.closest("[data-a]"); if(!b) return;

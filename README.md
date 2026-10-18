@@ -36,6 +36,8 @@
 - Den samme retten kommer ikke for tett, og appen husker reglene for hver rett.
 - Når dere velger en rett selv, ser dere **hvor mange ganger den allerede ligger i menyen**. Det er ekstra nyttig ved månedshandling.
 - Endret dere mening? **Angre** setter planen tilbake.
+- Tacofredag eller fredagspizza? Svar på det når dere lager bruker, så legger appen **fredagsfavoritten** på fredagene.
+- Appen **lærer av valgene deres**. Velger dere samme rett på samme ukedag minst 3 av 5 uker, foreslår den retten der. Det dere har lært appen, vises under Innstillinger og kan slås av eller nullstilles.
 
 ### Retter dere kan tilpasse
 - Nye husstander får rundt **20 vanlige middagsretter** med ferdige ingredienser. Mengdene kan justeres, og rettene kan slettes.
