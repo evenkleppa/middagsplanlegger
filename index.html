@@ -1883,7 +1883,8 @@ $("#authStep").addEventListener("click",e=>{
     if(doImport){
       let start={};
       try{ const r=await fetch("data/startdata.json",{cache:"no-store"}); if(r.ok) start=await r.json(); }catch(e){ console.warn(e); }
-      const rows=Object.entries(start).map(([path,data])=>({household_id:h.id, path, data}));
+      // Bare retter og pakkestørrelser importeres. Menyen starter alltid tom, selv om filen skulle inneholde en meny.
+      const rows=Object.entries(start).filter(([path])=>/^(recipes|ingredients)\//.test(path)).map(([path,data])=>({household_id:h.id, path, data}));
       for(let i=0;i<rows.length;i+=500){ const {error:e2}=await sb.from("docs").upsert(rows.slice(i,i+500)); if(e2) throw e2; }
     }
     A.h=h; A.ob={step:1, shopMode:null, shopDay:4, startOffset:0, persons:2};
