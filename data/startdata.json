@@ -1,0 +1,957 @@
+{
+ "plans/2026-10": {
+  "days": {
+   "1": {
+    "label": "Taco",
+    "recipeId": "taco"
+   },
+   "2": {
+    "label": "Kjøttdeig og spagetti",
+    "recipeId": "kjottdeig-spagetti"
+   },
+   "3": {
+    "label": "Grandiosa",
+    "recipeId": "grandiosa"
+   },
+   "4": {
+    "label": "Karbonader og potetstappe",
+    "recipeId": "karbonader-potetstappe"
+   },
+   "5": {
+    "label": "Omelett",
+    "recipeId": "omelett"
+   },
+   "6": {
+    "label": "Pannekaker",
+    "recipeId": "pannekaker"
+   },
+   "7": {
+    "label": "Tandoori",
+    "recipeId": "tandoori"
+   },
+   "8": {
+    "label": "Fajita",
+    "recipeId": "fajita"
+   },
+   "9": {
+    "label": "Pasta, pesto og kylling",
+    "recipeId": "pasta-pesto-kylling"
+   },
+   "10": {
+    "label": "Pizza tynn",
+    "recipeId": "pizza-tynn"
+   },
+   "11": {
+    "label": "Wienerpølser og potetstappe",
+    "recipeId": "wienerpolser-potetstappe"
+   },
+   "12": {
+    "label": "Nachos",
+    "recipeId": "nachos"
+   },
+   "13": {
+    "label": "Kylling og pitabrød",
+    "recipeId": "kylling-pitabrod"
+   },
+   "14": {
+    "label": "Kjøttboller, potetmos og brun saus",
+    "recipeId": "kjottboller-potetmos"
+   },
+   "15": {
+    "label": "Karbonader og potetstappe",
+    "recipeId": "karbonader-potetstappe"
+   },
+   "16": {
+    "label": "Grandiosa",
+    "recipeId": "grandiosa"
+   },
+   "17": {
+    "label": "Pai (Martine)",
+    "recipeId": "pai-martine"
+   },
+   "18": {
+    "label": "Kylling og ris",
+    "recipeId": "kylling-ris"
+   },
+   "19": {
+    "label": "Grilling",
+    "recipeId": "grilling"
+   },
+   "20": {
+    "label": "Meksikansk tomatsuppe (Martine)",
+    "recipeId": "meksikansk-tomatsuppe"
+   },
+   "21": {
+    "label": "Kylling, ris og bretagne",
+    "recipeId": "kylling-ris-bretagne"
+   },
+   "22": {
+    "label": "Pizza tykk",
+    "recipeId": "pizza-tykk"
+   },
+   "23": {
+    "label": "Wienerpølser og potetstappe",
+    "recipeId": "wienerpolser-potetstappe"
+   },
+   "24": {
+    "label": "Pizza tynn",
+    "recipeId": "pizza-tynn"
+   },
+   "25": {
+    "label": "Tandoori",
+    "recipeId": "tandoori"
+   },
+   "26": {
+    "label": "Laks",
+    "recipeId": "laks"
+   },
+   "27": {
+    "label": "TikTokPasta (Martine)",
+    "recipeId": "tiktokpasta"
+   },
+   "28": {
+    "label": "Kyllingpanetter, ris og bretagne",
+    "recipeId": "kyllingpanetter-ris-bretagne"
+   },
+   "29": {
+    "label": "Grilling",
+    "recipeId": "grilling"
+   },
+   "30": {
+    "label": "Pannekaker",
+    "recipeId": "pannekaker"
+   },
+   "31": {
+    "label": "Tandoori",
+    "recipeId": "tandoori"
+   }
+  }
+ },
+ "recipes/karbonader-potetstappe": {
+  "ingredients": [
+   {
+    "amount": 4,
+    "name": "Karbonader",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Løk",
+    "unit": "stk"
+   },
+   {
+    "amount": 400,
+    "name": "Poteter",
+    "unit": "g"
+   },
+   {
+    "amount": 2,
+    "name": "Melk",
+    "unit": "dl"
+   },
+   {
+    "amount": 100,
+    "name": "Smør",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Brun saus",
+    "unit": "pk"
+   }
+  ],
+  "leftover": false,
+  "name": "Karbonader og potetstappe",
+  "servings": 4
+ },
+ "recipes/pizza-tykk": {
+  "ingredients": [
+   {
+    "amount": 600,
+    "name": "Hvetemel",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Gjær",
+    "unit": "pk"
+   },
+   {
+    "amount": 1,
+    "name": "Pizzasaus",
+    "unit": "stk"
+   },
+   {
+    "amount": 300,
+    "name": "Revet ost",
+    "unit": "g"
+   },
+   {
+    "amount": 150,
+    "name": "Skinke",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Pizza tykk",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/fajita": {
+  "ingredients": [
+   {
+    "amount": 600,
+    "name": "Kyllingfilet",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Fajitakrydder",
+    "unit": "pose"
+   },
+   {
+    "amount": 1,
+    "name": "Tortillalefser",
+    "unit": "pk"
+   },
+   {
+    "amount": 2,
+    "name": "Paprika",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Løk",
+    "unit": "stk"
+   },
+   {
+    "amount": 300,
+    "name": "Rømme",
+    "unit": "g"
+   },
+   {
+    "amount": 150,
+    "name": "Revet ost",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Fajita",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/pizza-tynn": {
+  "ingredients": [
+   {
+    "amount": 400,
+    "name": "Hvetemel",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Gjær",
+    "unit": "pk"
+   },
+   {
+    "amount": 1,
+    "name": "Pizzasaus",
+    "unit": "stk"
+   },
+   {
+    "amount": 250,
+    "name": "Revet ost",
+    "unit": "g"
+   },
+   {
+    "amount": 150,
+    "name": "Skinke",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Pizza tynn",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/kylling-pitabrod": {
+  "ingredients": [
+   {
+    "amount": 600,
+    "name": "Kyllingfilet",
+    "unit": "g"
+   },
+   {
+    "amount": 8,
+    "name": "Pitabrød",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Isbergsalat",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Agurk",
+    "unit": "stk"
+   },
+   {
+    "amount": 2,
+    "name": "Tomat",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Dressing",
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "name": "Kylling og pitabrød",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/lasagne": {
+  "ingredients": [
+   {
+    "amount": 800,
+    "name": "Kjøttdeig",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Lasagneplater",
+    "unit": "pk"
+   },
+   {
+    "amount": 2,
+    "name": "Hakkede tomater",
+    "unit": "boks"
+   },
+   {
+    "amount": 1,
+    "name": "Løk",
+    "unit": "stk"
+   },
+   {
+    "amount": 5,
+    "name": "Melk",
+    "unit": "dl"
+   },
+   {
+    "amount": 40,
+    "name": "Hvetemel",
+    "unit": "g"
+   },
+   {
+    "amount": 40,
+    "name": "Smør",
+    "unit": "g"
+   },
+   {
+    "amount": 200,
+    "name": "Revet ost",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Lasagne",
+  "servings": 8,
+  "suggested": true
+ },
+ "recipes/tiktokpasta": {
+  "ingredients": [
+   {
+    "amount": 200,
+    "name": "Fetaost",
+    "unit": "g"
+   },
+   {
+    "amount": 500,
+    "name": "Cherrytomater",
+    "unit": "g"
+   },
+   {
+    "amount": 400,
+    "name": "Pasta",
+    "unit": "g"
+   },
+   {
+    "amount": 2,
+    "name": "Hvitløk",
+    "unit": "fedd"
+   }
+  ],
+  "leftover": false,
+  "name": "TikTokPasta (Martine)",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/omelett": {
+  "ingredients": [
+   {
+    "amount": 10,
+    "name": "Egg",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Melk",
+    "unit": "dl"
+   },
+   {
+    "amount": 150,
+    "name": "Skinke",
+    "unit": "g"
+   },
+   {
+    "amount": 100,
+    "name": "Revet ost",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Omelett",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/nachos": {
+  "ingredients": [
+   {
+    "amount": 400,
+    "name": "Kjøttdeig",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Tacokrydder",
+    "unit": "pose"
+   },
+   {
+    "amount": 1,
+    "name": "Nachochips",
+    "unit": "pose"
+   },
+   {
+    "amount": 200,
+    "name": "Revet ost",
+    "unit": "g"
+   },
+   {
+    "amount": 300,
+    "name": "Rømme",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Salsa",
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "name": "Nachos",
+  "servings": 3
+ },
+ "recipes/pai-martine": {
+  "ingredients": [],
+  "leftover": false,
+  "name": "Pai (Martine)",
+  "servings": 4
+ },
+ "recipes/tandoori": {
+  "ingredients": [
+   {
+    "amount": 600,
+    "name": "Kyllingfilet",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Tandoori-paste",
+    "unit": "stk"
+   },
+   {
+    "amount": 200,
+    "name": "Yoghurt naturell",
+    "unit": "g"
+   },
+   {
+    "amount": 300,
+    "name": "Ris",
+    "unit": "g"
+   },
+   {
+    "amount": 4,
+    "name": "Naanbrød",
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "name": "Tandoori",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/grilling": {
+  "ingredients": [],
+  "leftover": false,
+  "name": "Grilling",
+  "servings": 4
+ },
+ "recipes/pannekaker": {
+  "ingredients": [
+   {
+    "amount": 250,
+    "name": "Hvetemel",
+    "unit": "g"
+   },
+   {
+    "amount": 6,
+    "name": "Melk",
+    "unit": "dl"
+   },
+   {
+    "amount": 4,
+    "name": "Egg",
+    "unit": "stk"
+   },
+   {
+    "amount": 30,
+    "name": "Smør",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Pannekaker",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/kyllingpanetter-ris-bretagne": {
+  "ingredients": [
+   {
+    "amount": 1,
+    "name": "Kyllingpanetter",
+    "unit": "pk"
+   },
+   {
+    "amount": 300,
+    "name": "Ris",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Bretagne",
+    "unit": "pose"
+   }
+  ],
+  "leftover": false,
+  "name": "Kyllingpanetter, ris og bretagne",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/polsegrateng": {
+  "ingredients": [
+   {
+    "amount": 600,
+    "name": "Wienerpølser",
+    "unit": "g"
+   },
+   {
+    "amount": 250,
+    "name": "Makaroni",
+    "unit": "g"
+   },
+   {
+    "amount": 7,
+    "name": "Melk",
+    "unit": "dl"
+   },
+   {
+    "amount": 4,
+    "name": "Egg",
+    "unit": "stk"
+   },
+   {
+    "amount": 150,
+    "name": "Revet ost",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Pølsegrateng",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/laks": {
+  "ingredients": [
+   {
+    "amount": 500,
+    "name": "Laksefilet",
+    "unit": "g"
+   },
+   {
+    "amount": 400,
+    "name": "Poteter",
+    "unit": "g"
+   },
+   {
+    "amount": 0.3,
+    "name": "Brokkoli",
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "name": "Laks",
+  "notFri": true,
+  "notSat": true,
+  "notSun": true,
+  "servings": 4
+ },
+ "recipes/pita-kjottdeig": {
+  "ingredients": [
+   {
+    "amount": 400,
+    "name": "Kjøttdeig",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Tacokrydder",
+    "unit": "pose"
+   },
+   {
+    "amount": 8,
+    "name": "Pitabrød",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Isbergsalat",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Agurk",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Dressing",
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "name": "Pita og kjøttdeig",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/kylling-ris-bretagne": {
+  "ingredients": [
+   {
+    "amount": 600,
+    "name": "Kyllingfilet",
+    "unit": "g"
+   },
+   {
+    "amount": 300,
+    "name": "Ris",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Bretagne",
+    "unit": "pose"
+   }
+  ],
+  "leftover": false,
+  "name": "Kylling, ris og bretagne",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/lasagnerester": {
+  "ingredients": [],
+  "leftover": true,
+  "name": "Lasagnerester",
+  "servings": 4
+ },
+ "recipes/kjottboller-potetmos": {
+  "ingredients": [
+   {
+    "amount": 800,
+    "name": "Kjøttboller",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Poteter",
+    "unit": "kg"
+   },
+   {
+    "amount": 1,
+    "name": "Brun saus",
+    "unit": "pose"
+   },
+   {
+    "amount": 2,
+    "name": "Melk",
+    "unit": "dl"
+   },
+   {
+    "amount": 30,
+    "name": "Smør",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Kjøttboller, potetmos og brun saus",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/wienerpolser-potetstappe": {
+  "ingredients": [
+   {
+    "amount": 600,
+    "name": "Wienerpølser",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Poteter",
+    "unit": "kg"
+   },
+   {
+    "amount": 2,
+    "name": "Melk",
+    "unit": "dl"
+   },
+   {
+    "amount": 30,
+    "name": "Smør",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Wienerpølser og potetstappe",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/meksikansk-tomatsuppe": {
+  "ingredients": [],
+  "leftover": false,
+  "name": "Meksikansk tomatsuppe (Martine)",
+  "servings": 4
+ },
+ "recipes/kylling-ris": {
+  "ingredients": [
+   {
+    "amount": 600,
+    "name": "Kyllingfilet",
+    "unit": "g"
+   },
+   {
+    "amount": 300,
+    "name": "Ris",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Kylling og ris",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/pasta-pesto-kylling": {
+  "ingredients": [
+   {
+    "amount": 400,
+    "name": "Pasta",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Pesto",
+    "unit": "stk"
+   },
+   {
+    "amount": 500,
+    "name": "Kyllingfilet",
+    "unit": "g"
+   },
+   {
+    "amount": 250,
+    "name": "Cherrytomater",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Pasta, pesto og kylling",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/taco": {
+  "ingredients": [
+   {
+    "amount": 400,
+    "name": "Kjøttdeig",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Tacokrydder",
+    "unit": "pose"
+   },
+   {
+    "amount": 1,
+    "name": "Tortillalefser",
+    "unit": "pk"
+   },
+   {
+    "amount": 200,
+    "name": "Revet ost",
+    "unit": "g"
+   },
+   {
+    "amount": 300,
+    "name": "Rømme",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Salsa",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Agurk",
+    "unit": "stk"
+   },
+   {
+    "amount": 2,
+    "name": "Tomat",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Mais",
+    "unit": "boks"
+   },
+   {
+    "amount": 1,
+    "name": "Isbergsalat",
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "name": "Taco",
+  "servings": 2
+ },
+ "recipes/grandiosa": {
+  "ingredients": [
+   {
+    "amount": 1,
+    "name": "Grandiosa",
+    "unit": "stk"
+   }
+  ],
+  "leftover": false,
+  "name": "Grandiosa",
+  "servings": 2
+ },
+ "recipes/kjottdeig-spagetti": {
+  "ingredients": [
+   {
+    "amount": 400,
+    "name": "Kjøttdeig",
+    "unit": "g"
+   },
+   {
+    "amount": 400,
+    "name": "Spagetti",
+    "unit": "g"
+   },
+   {
+    "amount": 1,
+    "name": "Hakkede tomater",
+    "unit": "boks"
+   },
+   {
+    "amount": 1,
+    "name": "Løk",
+    "unit": "stk"
+   },
+   {
+    "amount": 100,
+    "name": "Revet ost",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "Kjøttdeig og spagetti",
+  "servings": 4,
+  "suggested": true
+ },
+ "recipes/pitapizza": {
+  "ingredients": [
+   {
+    "amount": 8,
+    "name": "Pitabrød",
+    "unit": "stk"
+   },
+   {
+    "amount": 1,
+    "name": "Pizzasaus",
+    "unit": "stk"
+   },
+   {
+    "amount": 300,
+    "name": "Revet ost",
+    "unit": "g"
+   },
+   {
+    "amount": 150,
+    "name": "Skinke",
+    "unit": "g"
+   }
+  ],
+  "leftover": false,
+  "name": "PitaPizza",
+  "servings": 4,
+  "suggested": true
+ },
+ "settings/main": {
+  "defaultPersons": 2
+ },
+ "ingredients/pasta": {
+  "name": "Pasta",
+  "packSize": 500,
+  "unit": "g"
+ },
+ "ingredients/egg": {
+  "name": "Egg",
+  "packSize": 12,
+  "unit": "stk"
+ },
+ "ingredients/melk": {
+  "name": "Melk",
+  "packSize": 1000,
+  "unit": "ml"
+ },
+ "ingredients/romme": {
+  "name": "Rømme",
+  "packSize": 300,
+  "unit": "g"
+ },
+ "ingredients/ris": {
+  "name": "Ris",
+  "packSize": 1000,
+  "unit": "g"
+ },
+ "ingredients/kjottdeig": {
+  "name": "Kjøttdeig",
+  "packSize": 400,
+  "unit": "g"
+ },
+ "ingredients/spagetti": {
+  "name": "Spagetti",
+  "packSize": 500,
+  "unit": "g"
+ }
+}
