@@ -811,10 +811,16 @@ body.nobg::before{opacity:0}
 .genbar #genBtn.quiet{background:transparent;color:var(--muted);font-weight:500;padding:0 8px;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
 .genbar #genBtn.quiet:hover{color:var(--accent)}
 
-/* Rutete duk som bakgrunn på Meny-fanen */
-body[data-view="meny"]::before{
+/* Rutete duk som bakgrunn på Innstillinger */
+body[data-view="settings"]::before{
   background-image:repeating-linear-gradient(0deg,rgba(45,90,76,.032) 0 22px,transparent 22px 44px),repeating-linear-gradient(90deg,rgba(45,90,76,.032) 0 22px,transparent 22px 44px);
   background-size:auto}
+
+/* Ingen glipe mellom periodelinja og fanene: linja går litt inn under fanene, og begge er helt dekkende */
+@media (max-width:719px){
+  #monthbar{bottom:calc(var(--tabbar) - 6px + env(safe-area-inset-bottom,0px));padding-bottom:10px;background:#fff!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+  .tabs{background:#fff!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+}
 </style>
 </head>
 <body>
@@ -911,7 +917,7 @@ body[data-view="meny"]::before{
       </section>
       <section class="scard">
         <strong class="sethead">Utseende</strong>
-        <label class="check"><input type="checkbox" id="bgToggle" checked> Bakgrunnsmønster med kjøkkentegninger</label>
+        <label class="check"><input type="checkbox" id="bgToggle" checked> Vis bakgrunnsmønster</label>
         <p class="hint">Gjelder bare denne telefonen eller maskinen.</p>
       </section>
       <div class="setlist" id="acct"></div>
