@@ -1,32 +1,109 @@
-# Middagsplanen
+<p align="center">
+  <img src="icons/icon-192.png" width="88" alt="Middagsplanen-ikonet">
+</p>
 
-Planlegg middager for måneden, få handlelista regnet ut automatisk, og del alt med resten av husstanden. Appen kjører fra GitHub Pages og lagrer data i Supabase.
+<h1 align="center">Middagsplanen</h1>
 
-## Det du trenger
+<p align="center">
+  Planlegg middagene for uka eller måneden, og få handlelista regnet ut automatisk.<br>
+  Delt med hele husstanden, rett på telefonen.
+</p>
 
-- En GitHub-konto
-- En Supabase-konto med et prosjekt (gratisplanen holder)
+<p align="center">
+  <a href="https://evenkleppa.github.io/middagsplanlegger/"><b>Åpne appen →</b></a>
+</p>
 
-Oppsettet tar rundt 15 minutter.
+<p align="center">
+  <img src="docs/meny.png" width="200" alt="Menyen for uka">
+  <img src="docs/handleliste.png" width="200" alt="Handlelista">
+  <img src="docs/rett.png" width="200" alt="Redigering av en rett">
+</p>
+
+> Appen er ny og blir oppdatert underveis. Tilbakemeldinger er velkomne.
 
 ---
 
-## 1. Sett opp databasen i Supabase
+## Hva appen gjør
 
+### Meny for den perioden som passer dere
+- Velg om dere handler **hver uke, annenhver uke eller en gang i måneden** når dere lager bruker. Velg også hvilken **dag dere handler**, og om menyen starter samme dag eller dagen etter.
+- Menyen viser riktige **ukenumre**, og åpner på **dagens dato**, så dere ser kveldens middag med en gang.
+- Dere kan bytte frekvens når som helst under **Innstillinger**, for eksempel fra to uker til måned. Ingenting slettes.
+
+### Appen lager menyen, eller dere velger selv
+- Trykk **«Fyll tomme dager»**, så foreslår appen retter for resten av perioden.
+- Dere kan også velge retter selv for enkeltdager og la appen fylle ut resten.
+- Den samme retten kommer ikke for tett, og appen husker reglene for hver rett.
+- Når dere velger en rett selv, ser dere **hvor mange ganger den allerede ligger i menyen**. Det er ekstra nyttig ved månedshandling.
+- Endret dere mening? **Angre** setter planen tilbake.
+
+### Retter dere kan tilpasse
+- Nye husstander får rundt **20 vanlige middagsretter** med ferdige ingredienser. Mengdene kan justeres, og rettene kan slettes.
+- Det er enkelt å **legge til egne retter**.
+- Hver rett kan begrenses til bestemte dager, for eksempel **bare i helgen** eller **bare hverdager**. Retten kan også merkes med at den **helst bør legges i helgen**.
+
+### Riktig antall personer
+- Velg **størrelsen på husholdningen** én gang, så skaleres alle oppskriftene.
+- Får dere besøk en dag, kan dere endre **antall personer for akkurat den dagen** i menyen.
+
+### Handlelista regnes ut for dere
+- Appen legger sammen ingrediensene fra alle rettene i perioden, for eksempel 1,2 kg kjøttdeig, og regner om til **antall pakker**.
+- Under **«Hva har vi hjemme?»** legger dere inn det dere allerede har, så trekkes det fra.
+- Huk av varene mens dere handler, eller kopier lista til en melding.
+
+### Delt med husstanden
+- Alle i samme husstand ser den samme menyen og handlelista. Endringer dukker opp på den andre telefonen **med en gang**.
+- Del husstandskoden fra Innstillinger, så kan resten av familien bli med.
+
+---
+
+## Kom i gang
+
+1. Åpne **[evenkleppa.github.io/middagsplanlegger](https://evenkleppa.github.io/middagsplanlegger/)** og trykk **Ny her? Opprett bruker**.
+2. Velg **Opprett husstand**. La «Start med forslag til vanlige middagsretter» stå på hvis dere vil ha retter å starte med.
+3. Svar på hvordan dere handler og hvor mange dere er.
+4. Trykk **«Fyll tomme dager»**, eller velg rettene selv.
+5. Vil dere være flere? Åpne **Innstillinger** (tannhjulet), kopier **husstandskoden** og send den til de andre. De lager egen bruker og velger **Bli med i en husstand**.
+
+### Legg appen på hjemskjermen
+- **iPhone:** åpne adressen i Safari, trykk på Del-knappen og velg **Legg til på Hjem-skjerm**.
+- **Android:** åpne adressen i Chrome, trykk på ⋮ og velg **Installer app**.
+
+Appen får da sitt eget ikon og åpnes i fullskjerm, som en vanlig app.
+
+<p align="center">
+  <img src="docs/startskjerm.png" width="200" alt="Startskjermen for nye husstander">
+  <img src="docs/innstillinger.png" width="200" alt="Innstillinger">
+</p>
+
+---
+
+## Personvern
+
+Hver husstand ser bare sine egne data. Retter, menyer og handlelister lagres i en database hos Supabase, beskyttet av tilgangsregler. Koden i dette repoet er offentlig, men det er ikke dataene dere legger inn.
+
+---
+
+## For utviklere: sett opp din egen kopi
+
+<details>
+<summary>Trykk for å se oppsettet (rundt 15 minutter)</summary>
+
+### Det du trenger
+- En GitHub-konto
+- En Supabase-konto med et prosjekt (gratisplanen holder)
+
+### 1. Sett opp databasen i Supabase
 1. Åpne prosjektet ditt på supabase.com.
-2. Gå til **SQL Editor** i menyen til venstre og trykk **New query**.
-3. Åpne filen `supabase/schema.sql` fra denne mappen, kopier alt og lim det inn.
-4. Trykk **Run**. Nederst skal det stå «Success. No rows returned».
+2. Gå til **SQL Editor** og trykk **New query**.
+3. Lim inn alt fra `supabase/schema.sql` og trykk **Run**. Nederst skal det stå «Success. No rows returned».
 
-Dette lager tabellene, tilgangsreglene (hver husstand ser bare sine egne data) og sanntidsoppdatering mellom telefonene.
+Dette lager tabellene, tilgangsreglene og sanntidsoppdateringen mellom telefonene.
 
-## 2. Hent adressen og nøkkelen
-
-1. I Supabase trykker du **Connect** øverst på siden, eller går til **Project Settings → API Keys**.
-2. Kopier **Project URL**, som ser slik ut: `https://abcdefgh.supabase.co`.
-3. Kopier den offentlige nøkkelen. Den heter **anon public** eller **publishable**.
-   Ikke bruk nøkkelen som heter **service_role** eller **secret**. Den skal aldri ligge i appen.
-4. Åpne `config.js` og lim inn begge verdiene:
+### 2. Legg inn adressen og nøkkelen
+1. I Supabase trykker du **Connect** eller går til **Project Settings → API Keys**.
+2. Kopier **Project URL** og den offentlige nøkkelen (**anon public** eller **publishable**). Bruk aldri **service_role** eller **secret**.
+3. Lim dem inn i `config.js`:
 
 ```js
 window.MIDDAG_CONFIG = {
@@ -35,63 +112,24 @@ window.MIDDAG_CONFIG = {
 };
 ```
 
-Den offentlige nøkkelen er laget for å ligge i nettleseren. Det er tilgangsreglene fra steg 1 som beskytter dataene.
+Den offentlige nøkkelen er laget for å ligge i nettleseren. Det er tilgangsreglene som beskytter dataene.
 
-## 3. Last opp til GitHub
+### 3. Legg ut appen med GitHub Pages
+1. Last opp alle filene til et offentlig repo.
+2. Gå til **Settings → Pages**, velg **Deploy from a branch**, **main** og **/ (root)**, og trykk **Save**.
+3. Etter et par minutter ligger appen på `https://BRUKERNAVN.github.io/REPONAVN/`.
 
-1. På github.com trykker du **+** øverst til høyre og velger **New repository**.
-2. Kall det for eksempel `middagsplanen` og velg **Public**. GitHub Pages er gratis for offentlige repoer.
-3. Trykk **Create repository**, og deretter lenken **uploading an existing file**.
-4. Dra inn **alt innholdet i denne mappen**: filene og mappene `icons`, `data` og `supabase`. Ikke dra inn selve mappen.
-5. Trykk **Commit changes**.
+### 4. Fortell Supabase hvor appen ligger
+1. Gå til **Authentication → URL Configuration**.
+2. Sett **Site URL** til adressen fra steg 3, og legg den samme adressen til under **Redirect URLs**.
+3. **Anbefalt:** skru av **Confirm email** under **Authentication → Sign In / Providers → Email**. Supabase sin innebygde e-post kan bare sende noen få e-poster i timen.
 
-## 4. Slå på GitHub Pages
+### Oppdateringer
+Last opp nye filer til repoet. GitHub Pages oppdaterer seg i løpet av et par minutter, og telefonene får den nye versjonen neste gang appen åpnes. Brukernes data ligger i Supabase og blir ikke berørt.
 
-1. I repoet går du til **Settings → Pages**.
-2. Under **Build and deployment** velger du **Source: Deploy from a branch**, så **Branch: main** og mappen **/ (root)**. Trykk **Save**.
-3. Etter et minutt eller to står adressen øverst på siden, for eksempel
-   `https://BRUKERNAVN.github.io/middagsplanen/`
+Endringer i `data/startdata.json` gjelder bare husstander som opprettes etterpå.
 
-## 5. Fortell Supabase hvor appen ligger
-
-Dette gjør at lenkene i e-poster (bekreftelse og glemt passord) går tilbake til appen.
-
-1. I Supabase går du til **Authentication → URL Configuration**.
-2. Sett **Site URL** til adressen fra steg 4.
-3. Legg til den samme adressen under **Redirect URLs**.
-
-**Anbefalt:** Supabase sin innebygde e-post kan bare sende noen få e-poster i timen. Det enkleste for en husstand er å slå av e-postbekreftelse. Gå til **Authentication → Sign In / Providers → Email** og skru av **Confirm email**. Da kan man logge inn med en gang man har laget bruker.
-
-## 6. Ta i bruk appen
-
-1. Åpne adressen og trykk **Ny her? Opprett bruker**.
-2. Velg **Opprett husstand**. La avhukingen «Start med forslag til vanlige middagsretter» stå på hvis dere vil ha rundt 20 vanlige retter å starte med. Alle kan endres eller slettes. Svar så på hvordan dere handler (hver uke, annenhver uke eller hver måned), hvilken dag dere handler og hvor mange dere er. Dette kan endres senere under **Innstillinger** (tannhjulet øverst til høyre).
-3. Nederst i appen står **husstandskoden**, som er seks tegn. Send den til kona.
-4. Hun åpner samme adresse, lager sin egen bruker og velger **Bli med i en husstand** med koden.
-
-Nå ser dere det samme, og endringer dukker opp på den andre telefonen med en gang.
-
-## 7. Legg appen på hjemskjermen
-
-**iPhone:** Åpne adressen i **Safari**, trykk på Del-knappen og velg **Legg til på Hjem-skjerm**.
-
-**Android:** Åpne adressen i **Chrome**, trykk på ⋮ og velg **Installer app** eller **Legg til på startskjermen**.
-
-Appen får da ikonet og åpnes i fullskjerm uten adresselinje.
-
----
-
-## Endringer senere
-
-Rediger eller last opp nye filer i GitHub-repoet. GitHub Pages oppdaterer seg selv i løpet av et par minutter, og telefonene får den nye versjonen neste gang appen åpnes.
-
-## Godt å vite
-
-- **Hva som er offentlig:** repoet er offentlig, så koden og startpakken i `data/startdata.json` kan ses av alle som finner det. Menyene, rettene og alt dere legger inn ligger bare i Supabase.
-- **Den gamle appen** på claude.ai blir ikke oppdatert når dere bruker denne, og omvendt.
-- **Gratisplanen hos Supabase** pauser prosjekter som ikke er brukt på en uke. Bruker dere appen jevnlig, skjer ikke det. Skjer det likevel, trykker du **Restore** i Supabase.
-
-## Filene
+### Filene
 
 | Fil | Hva den er |
 |---|---|
@@ -100,3 +138,10 @@ Rediger eller last opp nye filer i GitHub-repoet. GitHub Pages oppdaterer seg se
 | `supabase/schema.sql` | Databasen og tilgangsreglene, kjøres én gang |
 | `data/startdata.json` | Startpakken med vanlige middagsretter for nye husstander |
 | `manifest.webmanifest`, `sw.js`, `icons/` | Gjør at appen kan installeres på telefonen |
+| `docs/` | Skjermbildene i denne beskrivelsen |
+
+</details>
+
+---
+
+<p align="center"><sub>Utviklet av Even Kleppa</sub></p>
